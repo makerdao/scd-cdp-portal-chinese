@@ -43,19 +43,19 @@ class Wizard extends Component {
 
   steps = () => {
     const steps= [
-                    { text: "Creation of your proxy" },
-                    { text: "Creation of your CDP" },
+                    { text: "创建代理" },
+                    { text: "创建 CDP" },
                     {
-                      text: "Wrap your ETH to WETH - ERC20 tokenization",
+                      text: "打包 ETH 成 ERC20 格式的 WETH",
                       tip: <TooltipHint tipKey="wizard-wrap-eth-to-weth" />
                     },
                     {
-                      text: "Convert your WETH to PETH",
+                      text: "将 WETH 转换成 PETH",
                       tip: <TooltipHint tipKey="wizard-convert-weth-to-peth" />
                     },
-                    { text: "CDP collateralized with PETH - Your converted ETH is locked" },
-                    { text: "DAI generated -  Your requested DAI is generated" },
-                    { text: "DAI transferred - Your requested DAI is transferred to your wallet" }
+                    { text: "CDP 创建完成 - 你转换后的 ETH 已经存起来" },
+                    { text: "Dai 生成完成 - 你需要的 Dai 已经生成" },
+                    { text: "Dai 发送完成 - 你需要的 Dai 已经发送到你的钱包" }
                   ];
     if (this.props.profile.proxy && this.props.profile.proxy !== -1) {
       steps.shift();
@@ -93,23 +93,23 @@ class Wizard extends Component {
         state.error = false;
 
         if (state.eth.gt(0) && this.props.system.eth.myBalance.lt(state.eth)) {
-          state.error = "The amount of ETH to be deposited exceeds your current balance.";
+          state.error = "你没有足够的 ETH。";
           return state;
         } else if (state.skr.gt(0) && state.skr.round(0).lte(toWei(0.005))) {
-          state.error = `You are not allowed to deposit a low amount of ETH in a CDP. It needs to be higher than 0.005 PETH (${formatNumber(wmul(toBigNumber(toWei(0.005)), this.props.system.tub.per), 18)} ETH at actual price).`;
+          state.error = "最低存入 CDP 数量需要高于 0.005 PETH. (${formatNumber(wmul(toBigNumber(toWei(0.005)), this.props.system.tub.per), 18)} ETH 实时价格).";
           return state;
         }
 
         if (state.eth.gt(0) && state.dai.gt(0)) {
           if (this.props.system.sin.totalSupply.add(state.dai).gt(this.props.system.tub.cap)) {
-            state.error = "The amount of DAI you are trying to generate exceeds the current system debt ceiling.";
+            state.error = "你希望生成的 Dai 超过了系统的债务上限。";
           } else if (state.dai.gt(state.maxDaiAvail)) {
-            state.error = "The amount of ETH to be deposited is not enough to draw this amount of DAI.";
+            state.error = "你存入的 ETH 数量不足以生成这么多的 Dai。";
           } else {
             state.liqPrice = this.props.system.calculateLiquidationPrice(state.skr, state.dai);
             state.ratio = this.props.system.calculateRatio(state.skr, state.dai);
             if (state.ratio.lt(WAD.times(2))) {
-              state.warning = "The amount of DAI you are trying to generate against the collateral is putting your CDP at risk.";
+              state.warning = "提醒：希望生成 Dai 的数量会让你的 CDP 比较接近清算值。";
             }
             state.submitEnabled = true;
           }
@@ -146,8 +146,8 @@ class Wizard extends Component {
         <LegacyCupsAlert setOpenMigrate={ this.props.setOpenMigrate } />
         <header className="col" style={ {borderBottom: "none"} }>
           <Steps current={this.state.step - 1}>
-            <Step title="Collateralize &amp; generate DAI" icon={<StepIcon step="1" />} />
-            <Step title="Confirm details" icon={<StepIcon step="2" />} />
+            <Step title="质押并生成 DAI" icon={<StepIcon step="1" />} />
+            <Step title="确认细节" icon={<StepIcon step="2" />} />
           </Steps>
         </header>
         {
@@ -158,7 +158,7 @@ class Wizard extends Component {
 
                 <div className="row">
                   <div className="col col-2" style={ {border: "none"} }>
-                    <label className="typo-cl no-select">How much ETH would you like to collateralize?</label>
+                    <label className="typo-cl no-select">你希望质押多少 ETH？</label>
                     <div className="input-values-container">
                       <input ref={ input => this.eth = input } type="number" id="inputETH" className="number-input" required step="0.000000000000000001" placeholder="0.000" value={ this.state.ethText } onChange={ e => { this.checkValues("eth", e.target.value) } } onKeyDown={ e => { if (e.keyCode === 38 || e.keyCode === 40 || e.keyCode === 189) e.preventDefault() } } />
                       <span className="unit" style={ {marginBottom: "0.35rem" } }>ETH</span>
@@ -167,19 +167,19 @@ class Wizard extends Component {
                       </div>
                       {
                         this.state.minETHReq &&
-                        <p className="typo-cs align-right">Min. ETH required: { printNumber(this.state.minETHReq) } ETH</p>
+                        <p className="typo-cs align-right">最低存入数量: { printNumber(this.state.minETHReq) } ETH</p>
                       }
                     </div>
                   </div>
 
                   <div className="col col-2">
-                    <label className="typo-cl no-select">How much DAI would you like to generate?</label>
+                    <label className="typo-cl no-select">你希望生成多少 DAI？</label>
                     <div className="input-values-container">
                       <input ref={ input => this.dai = input } type="number" id="inputDAI" className="number-input" required step="0.000000000000000001" placeholder="0.000" value={ this.state.daiText } onChange={ e => { this.checkValues("dai", e.target.value) } } onKeyDown={ e => { if (e.keyCode === 38 || e.keyCode === 40 || e.keyCode === 189) e.preventDefault() } } />
                       <span className="unit" style={ {marginBottom: "0.35rem" } }>DAI</span>
                       {
                         this.state.maxDaiAvail &&
-                        <p className="typo-cs align-right">Max DAI available to generate: { printNumber(this.state.maxDaiAvail) } DAI</p>
+                        <p className="typo-cs align-right">最多借出数量: { printNumber(this.state.maxDaiAvail) } DAI</p>
                       }
                     </div>
                   </div>
@@ -188,17 +188,17 @@ class Wizard extends Component {
                 <div className="row">
                   <div className="col col-2">
                     <div style={ {marginBottom: "1rem"}}>
-                      <h3 className="typo-cl inline-headline">Liquidation price (ETH/USD)</h3>
+                      <h3 className="typo-cl inline-headline">清算价格 (ETH/USD)</h3>
                       <TooltipHint tipKey="liquidation-price" />
                       <div className="value typo-cl typo-bold right">{ this.state.liqPrice ? printNumber(this.state.liqPrice) : "--" } USD</div>
                     </div>
                     <div>
-                      <h3 className="typo-c inline-headline">Current price information (ETH/USD)</h3>
+                      <h3 className="typo-c inline-headline">当前价格 (ETH/USD)</h3>
                       <TooltipHint tipKey="current-price-information" />
                       <div className="value typo-c right">{ printNumber(this.props.system.pip.val) } USD</div>
                     </div>
                     <div>
-                      <h3 className="typo-c inline-headline">Liquidation penalty</h3>
+                      <h3 className="typo-c inline-headline">清算罚金</h3>
                       <TooltipHint tipKey="liquidation-penalty" />
                       <div className="value typo-c right">{ printNumber(this.props.system.tub.axe.minus(WAD).times(100)) }%</div>
                     </div>
@@ -206,12 +206,12 @@ class Wizard extends Component {
 
                   <div className="col col-2">
                     <div style={ {marginBottom: "1rem"}}>
-                      <h3 className="typo-cl inline-headline">Collateralization ratio</h3>
+                      <h3 className="typo-cl inline-headline">质押比例</h3>
                       <TooltipHint tipKey="collateralization-ratio" />
                       <div className="value typo-cl typo-bold right">{ this.state.ratio ? printNumber(this.state.ratio.times(100)) : "--" }%</div>
                     </div>
                     <div>
-                      <h3 className="typo-c inline-headline">Minimum ratio</h3>
+                      <h3 className="typo-c inline-headline">最低比例</h3>
                       <div className="value typo-c right">{ printNumber(this.props.system.tub.mat.times(100)) }%</div>
                     </div>
                   </div>
@@ -219,7 +219,7 @@ class Wizard extends Component {
 
                 <div className="row" style={ {borderBottom: "none"} }>
                   <p className="no-select">
-                    Stability fee @{ printNumber(toWei(fromWei(this.props.system.tub.fee).pow(60 * 60 * 24 * 365)).times(100).minus(toWei(100)), 1, true, true) }%/year in MKR
+                    稳定费用 { printNumber(toWei(fromWei(this.props.system.tub.fee).pow(60 * 60 * 24 * 365)).times(100).minus(toWei(100)), 1, true, true) }% 年化（MKR 支付）
                     <TooltipHint tipKey="stability-fee" />
                   </p>
                 </div>
@@ -231,7 +231,7 @@ class Wizard extends Component {
 
                 <div className="row" style={ {borderBottom: "none"} }>
                   <div className="col">
-                    <button className="bright-style text-btn text-btn-primary" type="submit" disabled={ !this.state.submitEnabled }>COLLATERALIZE &amp; generate Dai</button>
+                    <button className="bright-style text-btn text-btn-primary" type="submit" disabled={ !this.state.submitEnabled }>质押并生成 Dai</button>
                   </div>
                 </div>
               </form>
@@ -240,20 +240,20 @@ class Wizard extends Component {
             <React.Fragment>
               <div className="row">
                 <div className="col">
-                  <h3 className="typo-cl">Collateralize &amp; generate Dai</h3>
+                  <h3 className="typo-cl">质押并生成 Dai</h3>
                 </div>
               </div>
 
               <div className="row">
                 <div className="col col-2">
                   <div>
-                    <h3 className="typo-cl inline-headline">Collateral:</h3>
+                    <h3 className="typo-cl inline-headline">质押品</h3>
                     <div className="value typo-cl typo-bold right">{ printNumber(this.state.eth) } ETH</div>
                   </div>
                 </div>
                 <div className="col col-2">
                   <div>
-                    <h3 className="typo-cl inline-headline">Generate:</h3>
+                    <h3 className="typo-cl inline-headline">生成:</h3>
                     <div className="value typo-cl typo-bold right">{ printNumber(this.state.dai) } DAI</div>
                   </div>
                 </div>
@@ -261,13 +261,13 @@ class Wizard extends Component {
 
               <div className="row" style={ {marginTop: "50px"} }>
                 <div className="col">
-                  <h3 className="typo-cl">Transaction details</h3>
+                  <h3 className="typo-cl">交易细节</h3>
                 </div>
               </div>
 
               <div className="row">
                 <div className="col">
-                  <h3 className="typo-cl" style={ {marginBottom: "1rem"} }>Automated smart contract transaction</h3>
+                  <h3 className="typo-cl" style={ {marginBottom: "1rem"} }>自动执行智能合约交易</h3>
 
                   <div className="typo-c no-select clear-left">
                     {
@@ -280,7 +280,7 @@ class Wizard extends Component {
                         <path d="m1080.95385 474.769231-4.95385 4.953846-4.95385-4.953846-1.50769 1.507692 6.46154 6.461539 6.46154-6.461539zm-4.95385 17.230769c-7.73199 0-14-6.268014-14-14s6.26801-14 14-14 14 6.268014 14 14-6.26801 14-14 14zm0-2.153846c6.54245 0 11.84615-5.303704 11.84615-11.846154s-5.3037-11.846154-11.84615-11.846154-11.84615 5.303704-11.84615 11.846154 5.3037 11.846154 11.84615 11.846154z" transform="translate(-1062 -464)"/>
                       </svg>
                     }
-                    There are { this.steps().length } steps needed to complete the creation of your CDP.&nbsp;&nbsp;These will be automated for your convenience.
+                    创建 CDP 包含 { this.steps().length } 个步骤。&nbsp;&nbsp;将会自动执行以方便化。
                   </div>
 
                   <div className={"typo-c wizard-automated-transactions" + (this.state.stepsExpanded ? " expanded" : "") }>
@@ -308,12 +308,12 @@ class Wizard extends Component {
                     <label className="checkbox-container">
                       <input type="checkbox" checked={ this.state.checkTerms } value="1" onChange={e => this.check(e.target.checked, "checkTerms")}/>
                       <span className="checkmark"></span>
-                      I have read and accept the <Link to="/terms" target="_blank">Terms of Service</Link>
+                      我已经阅读并同意 <Link to="/terms" target="_blank">使用条款</Link>
                     </label>
                   </div>
                   <div>
-                    <button className="bright-style text-btn" onClick={ () => this.goToStep(1) }>GO BACK</button>
-                    <button className="bright-style text-btn text-btn-primary" onClick={ this.execute } disabled={ !this.state.checkTerms }>FINALIZE AND CREATE CDP</button>
+                    <button className="bright-style text-btn" onClick={ () => this.goToStep(1) }>返回</button>
+                    <button className="bright-style text-btn text-btn-primary" onClick={ this.execute } disabled={ !this.state.checkTerms }>完成并创建 CDP</button>
                   </div>
                 </div>
               </div>

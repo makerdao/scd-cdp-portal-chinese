@@ -62,41 +62,41 @@ class NotifySetUp extends React.Component {
             this.props.transactions.registry[txs[0]].pending || Object.keys(this.props.system.tub.cups).length === 0
             ?
               <React.Fragment>
-                <h2>Creating your CDP</h2>
+                <h2>正在创建你的 CDP</h2>
                 <CreatingCDPAnimation />
                 <p style={ {margin: "margin: 0 auto", padding: "2rem 0 2.5rem"} }>
                 {
                   txHash
                   ?
-                    etherscanTx(this.props.network.network, "View transaction", txHash)
+                    etherscanTx(this.props.network.network, "查看交易", txHash)
                   :
-                    "Creating your new CDP..."
+                    "创建你的新 CDP..."
                 }
                 </p>
               </React.Fragment>
             :
               <React.Fragment>
-                <h2>Congratulations on your new CDP</h2>
-                <img className="main" src={ cdpCreated } alt="CDP created" />
+                <h2>恭喜，你的 CDP 已经创建成功！</h2>
+                <img className="main" src={ cdpCreated } alt="CDP 已创建" />
                 <p>
-                  Welcome to the CDP Portal where you can view and manage<br />your collateral and debt position on a decentralized system.
+                  欢迎来到质押借 Dai 平台，你可以在去中心化环境下查看和管理你的<br />质押品.
                 </p>
                 <ul>
                   <li>
                     <div className="icon"><img src={ cdpCreatedIcon1 } alt="*" style={ {height: "24px"} } /></div>
-                    Check current collateral<br />to debt position
+                    查看当前债仓的<br />抵押品
                   </li>
                   <li>
                     <div className="icon"><img src={ cdpCreatedIcon2 } alt="*" style={ {height: "25px"} } /></div>
-                    Deposit or withdraw<br />collateral
+                    存入或者取回<br />质押品
                   </li>
                   <li>
                     <div className="icon"><img src={ cdpCreatedIcon3 } alt="*" style={ {height: "30px"} } /></div>
-                    Generate or pay<br />back DAI
+                    生成或者<br />偿还 DAI
                   </li>
                 </ul>
                 <div className="align-center" style={ {paddingBottom: "3.7rem", userSelect: "none"} }>
-                  <button className="modal-btn is-primary" onClick={ () => this.props.transactions.cleanCdpCreationProperty(txs[0]) } style={ {width: "13rem"} }>OK</button>
+                  <button className="modal-btn is-primary" onClick={ () => this.props.transactions.cleanCdpCreationProperty(txs[0]) } style={ {width: "13rem"} }>完成</button>
                 </div>
               </React.Fragment>
           }

@@ -122,9 +122,6 @@ class Dialog extends React.Component {
       case "wipe":
         value = min(this.props.system.dai.myBalance, this.props.system.tab(this.props.system.tub.cups[this.props.dialog.cupId]));
         break;
-      case "free":
-        value = wmul(this.props.system.tub.cups[this.props.dialog.cupId].avail_skr, this.props.system.tub.per).round(0);
-        break;
       // case "join":
       //   value = wdiv(this.props.system.gem.myBalance, wmul(this.props.system.tub.per, this.props.system.tub.gap));
       //   break;
@@ -170,11 +167,11 @@ class Dialog extends React.Component {
   renderDetails = () => {
     return (
       <React.Fragment>
-        <div className="info-heading">Current price information (ETH/USD)</div>
+        <div className="info-heading">当前价格 (ETH/USD)</div>
         <div className="info-value">{ printNumber(this.props.system.pip.val, 2) } USD</div>
-        <div className="info-heading">Projected liquidation price (ETH/USD)</div>
+        <div className="info-heading">预计清算价格 (ETH/USD)</div>
         <div className="info-value">{ this.state.liqPrice.gt(0) ? printNumber(this.state.liqPrice, 2) : "--" } USD</div>
-        <div className="info-heading">Projected collateralization ratio</div>
+        <div className="info-heading">预计质押率</div>
         <div className={ "info-value" + (this.state.ratio.gt(0) && this.state.ratio.toNumber() !== Infinity ? " text-green" : "") + (this.props.dialog.warning ? " text-yellow" : "") + (this.props.dialog.error ? " text-red" : "") }>{ this.state.ratio.gt(0) && this.state.ratio.toNumber() !== Infinity ? printNumber(this.state.ratio.times(100), 2) : "--" } %</div>
       </React.Fragment>
     )
@@ -194,9 +191,9 @@ class Dialog extends React.Component {
     return (
       this.props.system.pep.val.gte(0) &&
       <React.Fragment>
-        <div className="info-heading">Stability fee @{ printNumber(toWei(fromWei(this.props.system.tub.fee).pow(60 * 60 * 24 * 365)).times(100).minus(toWei(100)), 1, true, true) }%/year in MKR <TooltipHint tipKey="stability-fee" /></div>
+        <div className="info-heading">年化稳定费用: { printNumber(toWei(fromWei(this.props.system.tub.fee).pow(60 * 60 * 24 * 365)).times(100).minus(toWei(100)), 1, true, true) }% <TooltipHint tipKey="stability-fee" /></div>
         <div className="info-value" style={ { marginBottom: "0"} }>{ printNumber(wdiv(this.props.system.futureRap(this.props.system.tub.cups[this.props.dialog.cupId], 1200), this.props.system.pep.val)) } MKR</div>
-        <div className="info-value-smaller">Your MKR balance: { printNumber(this.props.system.gov.myBalance, 3) } MKR <Link to="/help/how-do-i-get-mkr-tokens" style={ {marginLeft: "5px"} }>Get MKR</Link></div>
+        <div className="info-value-smaller">你的 MKR 余额: { printNumber(this.props.system.gov.myBalance, 3) } MKR <Link to="/help/how-do-i-get-mkr-tokens" style={ {marginLeft: "5px"} }>获得 MKR</Link></div>
         {/* <div className="fee-type-selector">
           <input type="radio" id="govFeeMkr" name="govFeeMkr" value="mkr" checked={ this.state.govFeeType === "mkr" } onChange={ this.selectGovFeeType } /><label htmlFor="govFeeMkr">Pay stability fee with MKR</label><br />
           <input type="radio" id="govFeeDai" name="govFeeDai" value="dai" checked={ this.state.govFeeType === "dai" } onChange={ this.selectGovFeeType } /><label htmlFor="govFeeDai">Pay stability fee with DAI</label>
@@ -214,14 +211,14 @@ class Dialog extends React.Component {
         this.cond = () => { return false };
         return (
           <DialogContent
-            title={ `Migrate CDP #${dialog.cupId}` }
-            text={ `Please confirm that you want to migrate CDP #${dialog.cupId} to be used in this CDP Portal. Once migrated, your CDP will no longer be accessible in the old dashboard.` }
+            title={ `映射 CDP #${dialog.cupId}` }
+            text={ `请确认你希望映射 CDP #${dialog.cupId} 到当前的 CDP 面板. 一旦映射完成，你的 CDP 无法通过旧面板互动。` }
             dialog={ this.props.dialog }
             form={
               <form ref={ input => this.updateValueForm = input } onSubmit={ this.submitForm }>
                 <div style={ { marginTop: "4rem"} }>
-                  <button className="text-btn" type="submit" onClick={ this.props.dialog.handleCloseDialog }>Cancel</button>
-                  <button className="text-btn text-btn-primary" type="submit">Migrate</button>
+                  <button className="text-btn" type="submit" onClick={ this.props.dialog.handleCloseDialog }>取消</button>
+                  <button className="text-btn text-btn-primary" type="submit">映射</button>
                 </div>
               </form>
             }
@@ -236,10 +233,10 @@ class Dialog extends React.Component {
           }, () => {
             this.props.dialog.error = "";
             if (isAddress(value)) {
-              console.debug(`Checking proxy ownership of ${value}...`);
+              console.debug(`检查代理所有权 ${value}...`);
               blockchain.getProxy(value).then(proxyAddress => {
                 if (proxyAddress) {
-                  console.debug(`Proxy found: ${proxyAddress}`);
+                  console.debug(`检测到代理: ${proxyAddress}`);
                   this.setState({ giveHasProxy: true, submitEnabled: true });
                 } else {
                   console.debug(`No proxy found`);
@@ -247,15 +244,15 @@ class Dialog extends React.Component {
                 }
               });
             } else {
-              this.props.dialog.error = "Invalid address entered.";
+              this.props.dialog.error = "无效的地址";
             }
           });
         };
         return (
           <DialogContent
-            title={ `Move CDP #${dialog.cupId}` }
-            text="Enter Ethereum address where you would like to move your CDP."
-            indentedText="You may only move your CDP to an Ethereum address that you own. By clicking the box below, you (“You“) affirmatively represent that you alone own and control (i) the CDP that You will transfer, and (ii) the public Ethereum address to which it will be transferred."
+            title={ `转移 CDP #${dialog.cupId}` }
+            text="输入你希望转移到的以太坊地址"
+            indentedText="你最好将 CDP 转移到自己所拥有的地址。勾选下面的选项，表示同意你拥有并控制当前 CDP 和将要转移到的以太坊地址。"
             dialog={ this.props.dialog }
             form={
               <form ref={ input => this.updateValueForm = input } onSubmit={ this.submitForm }>
@@ -267,7 +264,7 @@ class Dialog extends React.Component {
                   <label className="checkbox-container">
                     <input type="checkbox" style={ {visibility: "initial", width: "0px"} } id="ownThisWallet" name="ownThisWallet" checked={ this.state.ownThisWallet } value="1" onChange={ this.selectOwnThisWallet } />
                     <span className="checkmark"></span>
-                    I own this Ethereum address and agree to the disclaimer above
+                    我确认拥有这个以太坊地址，并且同意免责协议
                   </label>
                 </div>
                 {
@@ -276,7 +273,7 @@ class Dialog extends React.Component {
                     <label className="checkbox-container">
                       <input type="checkbox" style={ {visibility: "initial", width: "0px"} } id="giveToProxy" name="giveToProxy" checked={ this.state.giveToProxy } value="1" onChange={ this.selectGiveToProxy } />
                       <span className="checkmark"></span>
-                      Move CDP to Ethereum's proxy address <TooltipHint tip="This address has a proxy associated with it. Checking this box will move the CDP to their proxy instead of their address directly, allowing them to manage it in the CDP Portal." />
+                      将 CDP 转移到以太坊代理合约地址 <TooltipHint tip="这个地址会通过一个代理协议，点击确认将授权通过这个代理转移 CDP。" />
                     </label>
                   </div>
                 }
@@ -291,8 +288,8 @@ class Dialog extends React.Component {
                   { this.renderErrors() }
                 </div>
                 <div>
-                  <button className="text-btn" type="submit" onClick={ this.props.dialog.handleCloseDialog }>Cancel</button>
-                  <button className="text-btn text-btn-primary" type="submit" disabled={ !this.state.submitEnabled || !this.state.ownThisWallet }>Move</button>
+                  <button className="text-btn" type="submit" onClick={ this.props.dialog.handleCloseDialog }>取消</button>
+                  <button className="text-btn text-btn-primary" type="submit" disabled={ !this.state.submitEnabled || !this.state.ownThisWallet }>转移</button>
                 </div>
               </form>
             }
@@ -303,13 +300,13 @@ class Dialog extends React.Component {
         this.cond = () => { return false };
         return (
           <DialogContent
-            title={ `Close CDP #${dialog.cupId}` }
-            text="Closing your CDP requires paying back your outstanding Dai debt, as well as the accumulated stability fee. The stability fee can be paid in either DAI or MKR."
+            title={ `关闭 CDP #${dialog.cupId}` }
+            text="关闭 CDP 需要偿还你借出的 Dai 以及累计的稳定费用。稳定费用需要用 MKR 支付"
             dialog={ this.props.dialog }
             form={
               <form ref={ input => this.updateValueForm = input } onSubmit={ this.submitForm }>
                 <div className="info-section">
-                  <div className="info-heading">Outstanding Dai generated</div>
+                  <div className="info-heading">已生成的 Dai 款</div>
                   <div className="info-value">{ printNumber(this.props.system.tab(cup), 3) } DAI</div>
                   { cup && cup.art.gt(0) && this.renderFeeTypeSelector() }
                   {/* <div className="info-heading">Total Closing Payment</div>
@@ -317,8 +314,8 @@ class Dialog extends React.Component {
                   { this.renderErrors() }
                 </div>
                 <div>
-                  <button className="text-btn" type="submit" onClick={ this.props.dialog.handleCloseDialog }>Cancel</button>
-                  <button className="text-btn text-btn-primary" type="submit">Close</button>
+                  <button className="text-btn" type="submit" onClick={ this.props.dialog.handleCloseDialog }>取消</button>
+                  <button className="text-btn text-btn-primary" type="submit">关闭</button>
                 </div>
               </form>
             }
@@ -338,9 +335,9 @@ class Dialog extends React.Component {
             this.props.dialog.error = "";
             if (valueWei.gt(0)) {
               if (this.props.system.eth.myBalance.lt(valueWei)) {
-                this.props.dialog.error = "Not enough balance to deposit this amount of ETH.";
+                this.props.dialog.error = "没有足够的 ETH 余额.";
               } else if (cup.avail_skr.round(0).add(skrValue).gt(0) && cup.avail_skr.add(skrValue).round(0).lte(toWei(0.005))) {
-                this.props.dialog.error = `You are not allowed to deposit a low amount of ETH in a CDP. It needs to be higher than 0.005 PETH (${formatNumber(wmul(toBigNumber(toWei(0.005)), this.props.system.tub.per), 18)} ETH at actual price).`;
+                this.props.dialog.error = `存入的 ETH 数量太少，最低值为 0.005 PETH。 (${formatNumber(wmul(toBigNumber(toWei(0.005)), this.props.system.tub.per), 18)} ETH 以太实时价格).`;
               } else {
                 this.setState({submitEnabled: true});
               }
@@ -349,8 +346,8 @@ class Dialog extends React.Component {
         }
         return (
           <DialogContent
-            title="Deposit Collateral"
-            text="How much ETH would you like to deposit?"
+            title="存入质押品"
+            text="你希望存入多少 ETH？"
             dialog={ this.props.dialog }
             form={
               <form ref={ input => this.updateValueForm = input } onSubmit={ this.submitForm }>
@@ -365,8 +362,8 @@ class Dialog extends React.Component {
                   { this.renderErrors() }
                 </div>
                 <div>
-                  <button className="text-btn" type="submit" onClick={ this.props.dialog.handleCloseDialog }>Cancel</button>
-                  <button className="text-btn text-btn-primary" type="submit" disabled={ !this.state.submitEnabled }>Deposit</button>
+                  <button className="text-btn" type="submit" onClick={ this.props.dialog.handleCloseDialog }>取消</button>
+                  <button className="text-btn text-btn-primary" type="submit" disabled={ !this.state.submitEnabled }>存入</button>
                 </div>
               </form>
             }
@@ -391,11 +388,11 @@ class Dialog extends React.Component {
             this.props.dialog.error = this.props.dialog.warning = "";
             if (valueWei.gt(0)) {
               if (cup.avail_skr.lt(skrValue)) {
-                this.props.dialog.error = "This amount of ETH exceeds the maximum available to withdraw.";
+                this.props.dialog.error = "你希望取回的 ETH 数量超过了最高值。";
               } else if (cup.ink.minus(skrValue).lte(toWei(0.005)) && !cup.avail_skr.round(0).eq(skrValue)) {
-                this.props.dialog.error = `A CDP cannot be left with a dust amount lower than or equal to 0.005 PETH (${formatNumber(wmul(toBigNumber(toWei(0.005)), this.props.system.tub.per), 18)} ETH at actual price). You have to either leave more or withdraw the whole amount.`;
+                this.props.dialog.error = `CDP 最少需要价值 0.005 PETH 的余额。 (${formatNumber(wmul(toBigNumber(toWei(0.005)), this.props.system.tub.per), 18)} 实时 ETH 价格). 你需要保留更多或者全部取回。`;
               } else if (valueWei.gt(0) && this.props.system.tub.off === false && cup.art.gt(0) && this.state.ratio.lt(WAD.times(2))) {
-                this.props.dialog.warning = "The amount of ETH you are trying to withdraw is putting your CDP at risk.";
+                this.props.dialog.warning = "你希望提取的数量会让 CDP 太接近清算值。";
                 this.setState({submitEnabled: true});
               } else {
                 this.setState({submitEnabled: true});
@@ -406,28 +403,24 @@ class Dialog extends React.Component {
         // }
         return (
           <DialogContent
-            title="Withdraw Collateral"
-            text="How much ETH would you like to withdraw?"
+            title="取回质押品"
+            text="你希望取回多少 ETH？"
             dialog={ this.props.dialog }
             form={
               <form ref={ input => this.updateValueForm = input } onSubmit={ this.submitForm }>
                 <div className="input-section">
                   { this.renderNumberInput("ETH") }
-                  {
-                    this.props.system.tab(cup).eq(0) &&
-                    <div className="set-max" style={ {float: 'right', marginLeft: '22px'} }><a href="#action" onClick={ this.setMax }>Set max</a></div>
-                  }
-                  <div className="peth-equiv" style={ {float: 'right'} }>{ printNumber(this.state.skr) } PETH <TooltipHint tipKey="what-is-peth" /></div>
+                  <div className="peth-equiv">{ printNumber(this.state.skr) } PETH <TooltipHint tipKey="what-is-peth" /></div>
                 </div>
                 <div className="info-section">
-                  <div className="info-heading">Max. available to withdraw</div>
+                  <div className="info-heading">最多可取回数量</div>
                   <div className="info-value">{ cup ? printNumber(cup.avail_eth, 3) : "--" } ETH</div>
                   { this.renderDetails() }
                   { this.renderErrors() }
                 </div>
                 <div>
-                  <button className="text-btn" type="submit" onClick={ this.props.dialog.handleCloseDialog }>Cancel</button>
-                  <button className="text-btn text-btn-primary" type="submit" disabled={ !this.state.submitEnabled }>Withdraw</button>
+                  <button className="text-btn" type="submit" onClick={ this.props.dialog.handleCloseDialog }>取消</button>
+                  <button className="text-btn text-btn-primary" type="submit" disabled={ !this.state.submitEnabled }>取回</button>
                 </div>
               </form>
             }
@@ -445,11 +438,11 @@ class Dialog extends React.Component {
             this.props.dialog.error = this.props.dialog.warning = "";
             if (valueWei.gt(0)) {
               if (this.props.system.sin.totalSupply.add(valueWei).gt(this.props.system.tub.cap)) {
-                this.props.dialog.error = "This amount of DAI exceeds the system debt ceiling.";
+                this.props.dialog.error = "这个数量超过了系统的债务上限。";
               } else if (cup.avail_dai.lt(valueWei)) {
-                this.props.dialog.error = "You have insufficient collateral deposited to generate this amount of DAI. Deposit more collateral first.";
+                this.props.dialog.error = "你没有足够的抵押品去生成这个数量的 DAI，请先存入更多的抵押品。";
               } else if (this.state.ratio.lt(WAD.times(2))) {
-                this.props.dialog.warning = "The amount of DAI you are trying to generate against the collateral is putting your CDP at risk.";
+                this.props.dialog.warning = "提醒：你希望生成 DAI 的数量会让 CDP 比较接近清算值。";
                 this.setState({submitEnabled: true});
               } else {
                 this.setState({submitEnabled: true});
@@ -459,8 +452,8 @@ class Dialog extends React.Component {
         }
         return (
           <DialogContent
-            title="Generate DAI"
-            text="How much DAI would you like to generate?"
+            title="生成 DAI"
+            text="你希望生成多少 DAI？"
             dialog={ this.props.dialog }
             form={
               <form ref={ input => this.updateValueForm = input } onSubmit={ this.submitForm }>
@@ -468,14 +461,14 @@ class Dialog extends React.Component {
                   { this.renderNumberInput("DAI") }
                 </div>
                 <div className="info-section">
-                  <div className="info-heading">Max. available to generate</div>
+                  <div className="info-heading">最多可生成数量</div>
                   <div className="info-value">{ printNumber(this.props.system.tub.cups[this.props.dialog.cupId].avail_dai, 2) } DAI</div>
                   { this.renderDetails() }
                   { this.renderErrors() }
                 </div>
                 <div>
-                  <button className="text-btn" type="submit" onClick={ this.props.dialog.handleCloseDialog }>Cancel</button>
-                  <button className="text-btn text-btn-primary" type="submit" disabled={ !this.state.submitEnabled }>Generate</button>
+                  <button className="text-btn" type="submit" onClick={ this.props.dialog.handleCloseDialog }>取消</button>
+                  <button className="text-btn text-btn-primary" type="submit" disabled={ !this.state.submitEnabled }>生成</button>
                 </div>
               </form>
             }
@@ -505,16 +498,16 @@ class Dialog extends React.Component {
                                         ).round(0);
               const valuePlusGovFee = this.state.govFeeType === "dai" ? valueWei.add(futureGovDebtSai.times(1.25)) : valueWei; // If fee is paid in DAI we add an extra 25% (spread)
               if (this.props.system.dai.myBalance.lt(valuePlusGovFee)) {
-                this.props.dialog.error = "You don't have enough DAI in your wallet to wipe this amount.";
+                this.props.dialog.error = "你没有足够的 DAI。";
               } else if (this.props.system.tab(cup).lt(valueWei)) {
-                this.props.dialog.error = "You are trying to payback more DAI than the amount of DAI outstanding in your CDP.";
+                this.props.dialog.error = "你希望偿还 DAI 的数量超过了欠的 DAI 款";
               } else if (this.state.govFeeType === "mkr" && futureGovDebtMKR.gt(this.props.system.gov.myBalance)) {
-                this.props.dialog.error = "You don't have enough MKR in your wallet to wipe this amount.";
+                this.props.dialog.error = "你没有足够的 MKR 去偿还债务.";
               } else if (this.state.ratio.lt(WAD.times(1.5))) {
-                this.props.dialog.warning = "Your CDP is below the minimum collateralization ratio and currently at risk. You should payback DAI or deposit more collateral immediately.";
+                this.props.dialog.warning = "你的 CDP 不足最低要求质押率，你应该偿还 DAI 或者追加更多的质押品。";
                 this.setState({submitEnabled: true});
               } else if (this.state.ratio.lt(WAD.times(2))) {
-                this.props.dialog.warning = "Even if you payback this amount of DAI, your CDP will still be at risk.";
+                this.props.dialog.warning = "提醒：即使偿还这么多的 DAI，你的 CDP 还是比较接近清算线。";
                 this.setState({submitEnabled: true});
               } else {
                 this.setState({submitEnabled: true});
@@ -523,30 +516,30 @@ class Dialog extends React.Component {
           });
         }
         const indentedText = (!this.props.system.dai.allowance.eq(BIGGESTUINT256) || !this.props.system.gov.allowance.eq(BIGGESTUINT256))
-          ? "You might be requested to sign up to three transactions if there is not enough allowance in DAI and/or MKR to complete this transaction."
+          ? "你也许需要去签名三个交易，如果许可的 DAI 和 MKR 不够。"
           : "";
         return (
           <DialogContent
-            title="Payback DAI"
-            text="How much DAI would you like to pay back?"
+            title="偿还 DAI"
+            text="你希望偿还多少 DAI？"
             indentedText={ indentedText }
             dialog={ this.props.dialog }
             form={
               <form ref={ input => this.updateValueForm = input } onSubmit={ this.submitForm }>
                 <div className="input-section">
                   { this.renderNumberInput("DAI") }
-                  <div className="set-max"><a href="#action" onClick={ this.setMax }>Set max</a></div>
+                  <div className="set-max"><a href="#action" onClick={ this.setMax }>全部偿还</a></div>
                 </div>
                 <div className="info-section" style={ { marginTop: "2rem"} }>
-                  <div className="info-heading">Outstanding Dai generated</div>
+                  <div className="info-heading">已生成的 DAI 款</div>
                   <div className="info-value">{ printNumber(this.props.system.tab(this.props.system.tub.cups[this.props.dialog.cupId])) } DAI</div>
                   { this.renderFeeTypeSelector() }
                   { this.renderDetails() }
                   { this.renderErrors() }
                 </div>
                 <div>
-                  <button className="text-btn" type="submit" onClick={ this.props.dialog.handleCloseDialog }>Cancel</button>
-                  <button className="text-btn text-btn-primary" type="submit" disabled={ !this.state.submitEnabled }>Payback</button>
+                  <button className="text-btn" type="submit" onClick={ this.props.dialog.handleCloseDialog }>取消</button>
+                  <button className="text-btn text-btn-primary" type="submit" disabled={ !this.state.submitEnabled }>偿还</button>
                 </div>
               </form>
             }

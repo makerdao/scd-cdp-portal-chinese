@@ -19,9 +19,9 @@ class LegacyCupsAlert extends React.Component {
       this.props.system.showLegacyAlert && this.state.show && !localStorage.getItem(`LegacyCDPsAlertClosed-${this.props.network.defaultAccount}`) &&
       <InlineNotification
         class="migrate-cups"
-        caption="Migrate Existing CDPs"
-        message="Your account has one or more existing CDPs from the old Dai Dashboard. You'll need to migrate these CDPs to the new CDP Portal to see and interact with them here. Once migrated, your CDPs will only be accesible via this CDP Portal."
-        buttonText="Continue"
+        caption="映射已有 CDPs"
+        message="你的账户在旧的面板上有多个 CDPs，你需要将旧的 CDP 映射到新的 CDP 平台。在映射后，你的 CDP 只能通过新 CDP 面板互动。"
+        buttonText="继续"
         onCloseButtonClick={ () => { localStorage.setItem(`LegacyCDPsAlertClosed-${this.props.network.defaultAccount}`, true); this.setState({show: false}); } }
         onButtonClick={ () => this.props.setOpenMigrate(true) }
       />

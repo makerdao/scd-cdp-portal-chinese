@@ -79,10 +79,10 @@ class WalletClientSelector extends React.Component {
     return (
       <div className="frame no-account">
         <div className="heading">
-          <h2>Connect a Wallet</h2>
+          <h2>连接到钱包</h2>
         </div>
         <section className="content">
-          <div className="helper-text no-wrap">Get started by connecting one of the wallets below</div>
+          <div className="helper-text no-wrap">连接以下钱包开始</div>
           <a href="#action" onClick={ e => { e.preventDefault(); this.props.network.setWeb3WebClient() } } className="web-wallet">
           {
             providerName ?
@@ -93,7 +93,7 @@ class WalletClientSelector extends React.Component {
             :
               <React.Fragment>
                 <div className="provider-icon">{ walletIcons["web"] }</div>
-                Web Wallet
+                网页钱包
               </React.Fragment>
           }
           </a>

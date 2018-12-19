@@ -22,8 +22,8 @@ class NotFound extends React.Component {
                   <g transform="translate(21 26)"><path d="m13.2417802 21.89008v-11.492l-13.24043245-10.0332v21.5252" stroke="#1abc9c"/><path d="m17.3157441 21.89008v-11.492l13.2404325-10.0332v21.5252" stroke="#546979"/></g><path d="m34.2417802 47.89008v-11.492l-13.2404325-10.0332v21.5252" stroke="#1abc9c"/><path d="m38.3157441 47.89008v-11.492l13.2404325-10.0332v21.5252" stroke="#1b1b1b"/></g>
                 </g>
               </svg>
-              <h1>Page not found – Error 404</h1>
-              <h2>You spotted a black hole.</h2>
+              <h1>无法访问这个网址 – Error 404</h1>
+              <h2>你来到了一片荒原.</h2>
               <p>Don’t go too close – it sucks up<br />pages and contents.</p>
             </div>
             <img src={ image404 } draggable="false" alt="You spotted a black hole" />
@@ -31,8 +31,8 @@ class NotFound extends React.Component {
         </div>
         <div className="not-found-2">
           <div className="not-found-text-container-1">
-            <p>We are confident you will find what you were<br />looking for on the main page.</p>
-            <button className="text-btn" onClick={ () => { this.context.router.history.push("/") }}>GO TO MAIN PAGE</button>
+            <p>你可以返回<br />主页.</p>
+            <button className="text-btn" onClick={ () => { this.context.router.history.push("/") }}>返回主页</button>
           </div>
         </div>
       </React.Fragment>

@@ -39,7 +39,7 @@ class CupHistory extends React.Component {
   render() {
     return (
       <div className="col col-extra-padding">
-        <h2 className="underline">CDP History</h2>
+        <h2 className="underline">CDP 历史记录</h2>
           <div>
             {
               this.props.history === "loading"
@@ -51,7 +51,7 @@ class CupHistory extends React.Component {
                 !this.props.history
                 ?
                   <div className="col-md-12 system-status">
-                    <div>History is not available at this moment</div>
+                    <div>目前无法查看历史记录</div>
                   </div>
                 :
                 <React.Fragment>
@@ -62,31 +62,31 @@ class CupHistory extends React.Component {
                         let message = "", image = historyIconUnknown;
                         switch(action.act) {
                           case "OPEN":
-                            message = <React.Fragment>Opened your CDP</React.Fragment>;
+                            message = <React.Fragment>创建了 CDP</React.Fragment>;
                             image = historyIconOpen;
                             break;
                           case "GIVE":
-                            message = <React.Fragment>Transferred CDP from {etherscanAddress(this.props.network.network, `${action.guy.substring(0,20)}...`, action.guy)}</React.Fragment>;
+                            message = <React.Fragment>从 {etherscanAddress(this.props.network.network, `${action.guy.substring(0,20)}...`, action.guy)} 转移了 CDP</React.Fragment>;
                             image = historyIconGive;
                             break;
                           case "LOCK":
-                            message = <React.Fragment>Deposited {printNumber(toWei(action.arg * action.per))} ETH ({printNumber(toWei(action.arg))} PETH) to your CDP</React.Fragment>;
+                            message = <React.Fragment>存入 {printNumber(toWei(action.arg * action.per))} ETH ({printNumber(toWei(action.arg))} PETH) 到你的 CDP</React.Fragment>;
                             image = historyIconLocked;
                             break;
                           case "FREE":
-                            message = <React.Fragment>Withdrew {printNumber(toWei(action.arg * action.per))} ETH ({printNumber(toWei(action.arg))} PETH) from your CDP</React.Fragment>;
+                            message = <React.Fragment>取回 {printNumber(toWei(action.arg * action.per))} ETH ({printNumber(toWei(action.arg))} PETH) 从你的 CDP</React.Fragment>;
                             image = historyIconPayback;
                             break;
                           case "DRAW":
-                            message = <React.Fragment>Generated {printNumber(toWei(action.arg))} DAI from your CDP</React.Fragment>;
+                            message = <React.Fragment>生成 {printNumber(toWei(action.arg))} DAI 从你的 CDP</React.Fragment>;
                             image = historyIconBorrow;
                             break;
                           case "WIPE":
-                            message = <React.Fragment>Paid back {printNumber(toWei(action.arg))} DAI to your CDP</React.Fragment>;
+                            message = <React.Fragment>偿还 {printNumber(toWei(action.arg))} DAI 到你的 CDP</React.Fragment>;
                             image = historyIconTransfer; // Should this be "history-icon-payback.svg" instead?
                             break;
                           case "SHUT":
-                            message = <React.Fragment>Closed your CDP</React.Fragment>;
+                            message = <React.Fragment>关闭了你的 CDP</React.Fragment>;
                             image = historyIconUnknown;
                             break;
                           case "BITE":
@@ -115,9 +115,9 @@ class CupHistory extends React.Component {
                                 { message }
                               </span>
                               <span className="history-tx-links">
-                              { etherscanAddress(this.props.network.network, "Sender", action.guy) }
+                              { etherscanAddress(this.props.network.network, "发送者", action.guy) }
                               <span className="pipe-separator">&nbsp;|&nbsp;</span>
-                              { etherscanTx(this.props.network.network, "Tx Hash", action.tx) }
+                              { etherscanTx(this.props.network.network, "交易哈希", action.tx) }
                               </span>
                             </div>
                           </div>
@@ -141,7 +141,7 @@ class CupHistory extends React.Component {
                     </div>
                     <div className="history-details">
                       <span onClick={ () => this.toggleExpand() }>
-                        { this.state.stepsExpanded ? "Collapse" : "Expand"} complete history
+                        { this.state.stepsExpanded ? "Collapse" : "Expand"} 完整历史记录
                       </span>
                     </div>
                   </div>

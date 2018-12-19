@@ -39,64 +39,64 @@ class Landing extends React.Component {
       <div className="landing">
 
         <div className="landing-body">
-          <h1>Welcome to the<br />Collateralized Debt Position Portal</h1>
+          <h1>欢迎来到<br />质押借 Dai 平台</h1>
           <Slider {...settings} className="landing-slider">
             <div className="first-slide">
               <div style={ {textAlign: "center"} }>
                 <p className="align-center">
-                  This is the place to generate Dai!<br />
-                  Use this dapp from the Maker team to manage<br />
-                  depositing of collateral and generation of Dai.
+                  你可以在这里生成 Dai <br />
+                  该应用由 Maker 团队开发管理<br />
+                  存入质押品，生成 Dai 
                 </p>
                 <img className="preview" src={ welcomeHero } alt="CDP Portal" />
               </div>
             </div>
             <div>
               <div className="info-slide">
-                <h1>01.<span className="line"></span>THE CONCEPT</h1>
-                <h2 className="sm">What is a Collateralized Debt Position (CDP)?</h2>
-                <p>A CDP enables the generation of DAI stablecoins against the collateral (currently ETH) that you lock up in the CDP until you pay back the DAI you generated.</p>
+                <h1>01.<span className="line"></span>概念</h1>
+                <h2 className="sm">什么是质押债仓（CDP）?</h2>
+                <p>你可以通过质押债仓(CDP) 存入质押品 (目前支持 ETH)，借 Dai。之后偿还 Dai，取回质押品。</p>
               </div>
             </div>
             <div>
               <div className="info-slide">
-                <h1>02.<span className="line"></span>THE BENEFITS</h1>
-                <h2>What are the benefits of opening a CDP?</h2>
-                <p>You can get liquidity by generating DAI stablecoins without giving up ownership of your collateral (as long as you make sure that the CDP holds enough collateral to cover the value of the DAI stablecoins). When using ETH as collateral, the value of the locked up collateral must always be more than 150% of the amount of DAI stablecoins that you generate.</p>
+                <h1>02.<span className="line"></span>好处</h1>
+                <h2>使用质押债仓对我有什么好处?</h2>
+                <p>你可以在不放弃质押品收益权的同时，获得 Dai 作为流动资金 (只要有足够的抵押品支撑生成的 Dai)。当使用 ETH 作为抵押品时，抵押品的价值需要保持在生成 Dai 数量的1.5倍。</p>
               </div>
             </div>
             <div>
               <div className="info-slide">
-                <h1>03.<span className="line"></span>THE SETUP</h1>
-                <h2>How does it work?</h2>
-                <p>You determine how much ETH you want to lock up in the CDP. You generate DAI stablecoins against the ETH you locked up, and spend them as you wish. You pay back the DAI stablecoins when you no longer need the liquidity, together with a stability fee, and then you can withdraw the collateral that you locked up.</p>
+                <h1>03.<span className="line"></span>开始</h1>
+                <h2>如何开始?</h2>
+                <p>你可以选择要存入 CDP 内的 ETH 数量，然后生成对应的稳定币 Dai，便可以任意使用。当你不需要流动性后，可以随时偿还 Dai 和稳定费用，取回存入的抵押品。</p>
               </div>
             </div>
             <div>
               <div className="info-slide">
-                <h1>04.<span className="line"></span>THE RISKS</h1>
-                <h2>Is there any risk involved in creating a CDP?</h2>
-                <p>As long as you monitor your CDP and make sure that the value of the locked up ETH is always more than 150% of the DAI stablecoins that you have generated, your CDP will not be liquidated. If the value of the collateral comes close to 150% you can add more collateral, or pay back some of the debt. If the value of the locked up collateral falls below 150% then your CDP will be liquidated. This means that your collateral is being sold by the system in order to cover the value of the Dai stablecoins that you generated. Any leftover collateral is returned to your CDP so you can withdraw it. See the <Link to="/terms">Terms of Service</Link> for risks involved.</p>
+                <h1>04.<span className="line"></span>风险</h1>
+                <h2>生成 CDP 有风险吗?</h2>
+                <p> 只要保持你的 CDP 中，ETH 的价值高于 DAI 的150%，CDP就不会被清算。如果质押率接近 150%，你可以追加质押品，或者偿还部分 Dai。如果质押品的价值下降到 150% 以下，CDP 会被清算。这意味着，系统会出售你的质押品，向市场回购你生成出的 Dai 数量。剩余的质押品会返回你的 CDP 中供你取回。有关风险，请查看 <Link to="/terms">服务条款</Link>。</p>
               </div>
             </div>
             <div>
               <div className="info-slide">
-                <h1>05.<span className="line"></span>THE COST</h1>
-                <h2>Does it cost anything?</h2>
-                <p>There is a stability fee on the Dai stablecoins of 2.5% per year. You pay the fee with MKR when you pay back the Dai. If your CDP becomes liquidated, then there is a 13% liquidation penalty that will be subtracted when the locked collateral is sold.</p>
+                <h1>05.<span className="line"></span>成本</h1>
+                <h2>使用中会有费用吗？</h2>
+                <p>生成稳定币 Dai 会有0.5%的年化费用，你需要用 MKR 支付费用。如果你的 CDP 被清算，你的质押品会被扣除13%的罚金。</p>
               </div>
             </div>
           </Slider>
 
           <div className="getting-started">
-            <h1>What do I need to get started?</h1>
-            <p>Connect one of the four wallets below to automatically connect to the CDP Portal. For more information on these wallets, use the links below. If you are an advanced user you can also use the MakerDAO command line interface (CLI) to create CDPs.</p>
-            <p className="align-center"><Link to="/help" className="faq">See FAQs for additional information on wallets</Link></p>
+            <h1>我该如何开始？</h1>
+            <p> 授权以下的四个钱包之一，自动连接到CDP平台。了解这些钱包的更多信息，点击下方的链接。如果你是高级用户，也可以使用 MakerDAO 的命令符面板使用CDP。</p>
+            <p className="align-center"><Link to="/help" className="faq">关于钱包的常见问题</Link></p>
             <ul>
-              <li><a href="https://metamask.io/"><img src={ metamaskLogo } alt="Get MetaMask" /><div>Get MetaMask</div></a></li>
-              <li><a href="https://www.parity.io/"><img src={ parityLogo } alt="Get Parity" /><div>Get Parity</div></a></li>
-              <li><a href="https://www.ledgerwallet.com/products/ledger-nano-s"><img src={ ledgerNanoLogo } alt="Get Ledger Nano S" /><div>Get Ledger Nano S</div></a></li>
-              <li><a href="https://trezor.io/"><img src={ trezorLogo } alt="Get Trezor" /><div>Get Trezor</div></a></li>
+              <li><a href="https://metamask.io/"><img src={ metamaskLogo } alt="Get MetaMask" /><div>获得 MetaMask</div></a></li>
+              <li><a href="https://www.parity.io/"><img src={ parityLogo } alt="Get Parity" /><div>获得 Parity</div></a></li>
+              <li><a href="https://www.ledgerwallet.com/products/ledger-nano-s"><img src={ ledgerNanoLogo } alt="Get Ledger Nano S" /><div>获得 Ledger Nano S</div></a></li>
+              <li><a href="https://trezor.io/"><img src={ trezorLogo } alt="Get Trezor" /><div>获得 Trezor</div></a></li>
             </ul>
           </div>
         </div>

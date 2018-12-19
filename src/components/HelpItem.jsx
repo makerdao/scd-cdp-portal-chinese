@@ -18,18 +18,18 @@ class HelpItem extends React.Component {
     if (!helpId || (this.props.content.contentLoaded && !helpItem)) return <NotFound />;
 
     return (
-      <DocumentTitle title={ "CDP Portal: " + (helpItem ? helpItem.title : "Loading...") }>
+      <DocumentTitle title={ "CDP 平台: " + (helpItem ? helpItem.title : "加载中...") }>
           <div className="full-width-page">
             <div className="wrapper">
               <Menu page="help" />
               <main className="main-column fullwidth help-page">
                 <div>
                   <header className="col">
-                    <h1 className="typo-h1">Help</h1>
+                    <h1 className="typo-h1">使用帮助</h1>
                   </header>
                   <div className="row">
                     <div className="col col-extra-padding">
-                      <div className="breadcrumbs"><Link className="breadcrumb-root" to="/help">FAQ</Link><span className="breadcrumb-page">{ helpItem ? helpItem.title : "Loading..." }</span></div>
+                      <div className="breadcrumbs"><Link className="breadcrumb-root" to="/help">常见问题</Link><span className="breadcrumb-page">{ helpItem ? helpItem.title : "加载中..." }</span></div>
                       <div className="help-faq-item-markdown-container">
                       {
                         this.props.content.contentLoaded &&

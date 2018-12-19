@@ -86,10 +86,10 @@ class Web3Extended extends Web3 {
             }
             resolve(provider);
           } catch (error) {
-            reject(new Error("User denied account access"));
+            reject(new Error("用户拒绝了访问"));
           }
         } else {
-          reject(new Error("No client"));
+          reject(new Error("没有找到客户端"));
         }
       } catch(e) {
         reject(e);

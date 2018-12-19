@@ -50,7 +50,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <DocumentTitle title="CDP Portal">
+      <DocumentTitle title="CDP 平台: 质押借 Dai">
         <div className={ (this.props.network.isConnected && this.props.network.defaultAccount ? "is-connected" : "is-not-connected") + (this.props.dialog.show ? " dialog-open" : "") + ((this.props.transactions.priceModal.open || this.props.transactions.showCreatingCdpModal) ? " modal-open" : "") }>
           <div className="wrapper">
             {
@@ -67,7 +67,7 @@ class Home extends React.Component {
                     {
                       this.props.system.tub.cupsLoading
                       ?
-                        <div>Loading...</div>
+                        <div>加载中</div>
                       :
                         this.state.migrateCDP
                         ?
@@ -109,22 +109,22 @@ class Home extends React.Component {
                             </React.Fragment>
                           :
                             <React.Fragment>
-                              Loading...
+                              加载中...
                               {
                                 this.props.transactions.amountCheck > 4 &&
                                 <React.Fragment>
-                                  &nbsp;Node is momentarily out of sync.<br />
-                                  If it takes longer,&nbsp;
+                                  &nbsp;暂时无法同步到节点.<br />
+                                  如果持续太久,&nbsp;
                                   {
                                     !this.props.network.hw.active
                                     ?
                                       getCurrentProviderName() === "metamask"
                                       ?
-                                        "you can try switching to another network and back again to help fix this issue, or turning Metamask off and on again."
+                                        "你可以尝试切换到另一个网络，然后返回，或者关闭 Metamask 钱包重新进入。"
                                       :
-                                        `please try restarting ${getCurrentProviderName() !== "other" ? capitalize(getCurrentProviderName()) : "your client"}, then refresh the page.`
+                                        `请尝试重新进入 ${getCurrentProviderName() !== "other" ? capitalize(getCurrentProviderName()) : "your client"}, 然后刷新页面.`
                                     :
-                                      "please try refreshing the page."
+                                      "请尝试刷新页面。"
                                   }
                                 </React.Fragment>
                               }
@@ -143,7 +143,7 @@ class Home extends React.Component {
                   <div className="footer col col-no-border typo-cs typo-grid-grey">
                     {
                       !this.props.network.loadingAddress &&
-                      <Link to="/terms" target="_blank">Terms of Service</Link>
+                      <Link to="/terms" target="_blank">服务条款</Link>
                     }
                   </div>
                 </div>

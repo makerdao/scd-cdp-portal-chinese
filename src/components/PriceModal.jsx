@@ -38,8 +38,8 @@ class PriceModal extends React.Component {
     const { gasPrice } = this.state;
     return (
       <React.Fragment>
-        <h2>Set your gas price</h2>
-        <p>Gas is used to pay for transactions. A higher gas price results in faster confirmation times.</p>
+        <h2>设置你的 Gas 价格</h2>
+        <p>Gas 是用来支付交易费用。更高的 Gas 价格，确认时间会更快。</p>
         <h3>{ gasPrice } Gwei { gasPrice === this.stdGasPrice ? " (Standard)" : "" }</h3>
         {/* <p>~{ this.state.timeEstimate }</p> */}
         <form onSubmit={ this.setPriceAndSend }>
@@ -54,11 +54,11 @@ class PriceModal extends React.Component {
               onChangeComplete={this.handleChangeComplete}
               tooltip={false}
             />
-            <div style={ {fontSize: "0.9rem", letterSpacing: "0.02rem"} }><div style={ {float: "left"} }>Slow</div><div style={ {float: "right"} }>Fast</div></div>
+            <div style={ {fontSize: "0.9rem", letterSpacing: "0.02rem"} }><div style={ {float: "left"} }>慢</div><div style={ {float: "right"} }>快</div></div>
           </div>
 
           <div className="align-center" style={ {margin: "6.4rem 0 0", paddingBottom: "3.7rem", userSelect: "none"} }>
-            <button className="modal-btn is-secondary" onClick={ this.props.transactions.closePriceModal }>Cancel</button><button className="modal-btn is-primary" type="submit">Confirm</button>
+            <button className="modal-btn is-secondary" onClick={ this.props.transactions.closePriceModal }>取消</button><button className="modal-btn is-primary" type="submit">确认</button>
           </div>
         </form>
       </React.Fragment>

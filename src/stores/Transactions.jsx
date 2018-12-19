@@ -81,7 +81,7 @@ export default class TransactionsStore {
 
   logRequestTransaction = (id, title, cdpCreationTx) => {
     this.cdpCreationTx = cdpCreationTx;
-    const msgTemp = "Waiting for transaction signature...";
+    const msgTemp = "等待交易签名...";
     this.notificator.info(id, title, msgTemp, false);
   }
 
@@ -114,7 +114,7 @@ export default class TransactionsStore {
   }
 
   logPendingTransaction = (id, tx, title, callbacks = []) => {
-    const msgTemp = "Transaction TX was created. Waiting for confirmation...";
+    const msgTemp = "交易已经创建，正在等待确认...";
     const registry = {...this.registry};
     registry[tx] = {pending: true, title, callbacks, cdpCreationTx: this.cdpCreationTx};
     this.registry = registry;
@@ -129,7 +129,7 @@ export default class TransactionsStore {
   logTransactionConfirmed = object => {
     this.setLatestBlock(object.blockNumber);
     const tx = object.transactionHash;
-    const msgTemp = "Transaction TX was confirmed.";
+    const msgTemp = "交易已确认";
     if (this.registry[tx] && this.registry[tx].pending) {
       const registry = {...this.registry};
       registry[tx].pending = false;
@@ -146,7 +146,7 @@ export default class TransactionsStore {
   }
 
   logTransactionFailed = tx => {
-    const msgTemp = "Transaction TX failed.";
+    const msgTemp = "交易失败";
     if (this.registry[tx]) {
       const registry = {...this.registry};
       registry[tx].pending = false;

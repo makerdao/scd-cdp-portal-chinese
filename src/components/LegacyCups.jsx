@@ -15,9 +15,9 @@ class LegacyCups extends React.Component {
       Object.keys(this.props.system.tub.legacyCups).length > 0 &&
       <div className="migrate-cups-section">
         <header className="col">
-          <h1 className="typo-h1 inline-headline">Migrate CDPs</h1>
+          <h1 className="typo-h1 inline-headline">映射 CDPs</h1>
         </header>
-        <div className="number-of-cdps-to-migrate">Your account has <b>{ Object.keys(this.props.system.tub.legacyCups).length }</b> existing { `CDP${(Object.keys(this.props.system.tub.legacyCups).length > 1 ? "s" : "")}` } to be migrated.</div>
+        <div className="number-of-cdps-to-migrate">你的账户已有 <b>{ Object.keys(this.props.system.tub.legacyCups).length }</b>  { `CDP${(Object.keys(this.props.system.tub.legacyCups).length > 1 ? "s" : "")}` } 映射过来.</div>
         {
           Object.keys(this.props.system.tub.legacyCups).map(key =>
             <div className="cup-to-migrate" key={ key }>
@@ -27,11 +27,11 @@ class LegacyCups extends React.Component {
               <table>
                 <thead>
                   <tr>
-                    <th>DAI Debt</th>
-                    <th>Locked PETH</th>
-                    <th>% Ratio</th>
-                    <th>Liquidation Price</th>
-                    <th className="status-column">Status</th>
+                    <th>DAI 债务</th>
+                    <th>存入的 PETH</th>
+                    <th>% 比例</th>
+                    <th>清算价格</th>
+                    <th className="status-column">状态</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -42,7 +42,7 @@ class LegacyCups extends React.Component {
                         ?
                           printNumber(this.props.system.tab(this.props.system.tub.legacyCups[key]))
                         :
-                          "Loading..."
+                          "加载中..."
                       }
                     </td>
                     <td>
@@ -51,7 +51,7 @@ class LegacyCups extends React.Component {
                         ?
                           printNumber(this.props.system.tub.legacyCups[key].ink)
                         :
-                          "Loading..."
+                          "加载中..."
                       }
                     </td>
                     <td>
@@ -60,7 +60,7 @@ class LegacyCups extends React.Component {
                         ?
                           this.props.system.tub.legacyCups[key].ratio.lt(0)
                           ?
-                            "Loading..."
+                            "加载中..."
                           :
                             this.props.system.tub.legacyCups[key].ratio.gt(0) && this.props.system.tub.legacyCups[key].ratio.toNumber() !== Infinity
                             ?
@@ -92,7 +92,7 @@ class LegacyCups extends React.Component {
                         ?
                           this.props.system.tub.legacyCups[key].lad === "0x0000000000000000000000000000000000000000"
                           ?
-                            "Closed"
+                            "已关闭"
                           :
                             this.props.system.tub.legacyCups[key].safe === "N/A" || this.props.system.pip.val.lt(0)
                             ?
@@ -100,7 +100,7 @@ class LegacyCups extends React.Component {
                             :
                               typeof this.props.system.tub.legacyCups[key].safe === "undefined"
                               ?
-                                "Loading..."
+                                "加载中..."
                               :
                                 this.props.system.tub.legacyCups[key].safe
                                 ?
@@ -110,21 +110,21 @@ class LegacyCups extends React.Component {
                                     <svg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
                                       <circle cx="5" cy="5" fill="#1ABC9C" fillRule="evenodd" r="5"/>
                                     </svg>
-                                    Safe
+                                    安全
                                   </React.Fragment>
                                   :
                                     <React.Fragment>
                                       <svg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="5" cy="5" fill="#FBAE17" fillRule="evenodd" r="5"/>
                                       </svg>
-                                      Risk
+                                      有风险
                                     </React.Fragment>
                                 :
                                   <React.Fragment>
                                     <svg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
                                       <circle cx="5" cy="5" fill="#C0392B" fillRule="evenodd" r="5"/>
                                     </svg>
-                                    Unsafe
+                                    不安全
                                   </React.Fragment>
                         :
                           "-"
@@ -137,9 +137,9 @@ class LegacyCups extends React.Component {
                 {
                   this.props.system.tub.cups[key]
                   ?
-                    <div className="migrate-success">CDP MIGRATED</div>
+                    <div className="migrate-success">已映射 CDP</div>
                   :
-                    <button className="text-btn" data-method="migrate" data-cup={ key } disabled={ this.props.transactions.loading.migrate && this.props.transactions.loading.migrate[key] } onClick={ this.props.dialog.handleOpenDialog }>MIGRATE CDP #{ key }</button>
+                    <button className="text-btn" data-method="migrate" data-cup={ key } disabled={ this.props.transactions.loading.migrate && this.props.transactions.loading.migrate[key] } onClick={ this.props.dialog.handleOpenDialog }>已映射 CDP #{ key }</button>
                 }
               </div>
               <div className="clearfix"></div>
@@ -147,7 +147,7 @@ class LegacyCups extends React.Component {
           )
         }
         <div className="clearfix"></div>
-        <button className="bright-style text-btn" style={ {display: "block", margin: "4rem auto 0"} } onClick={ () => this.props.setOpenMigrate(false) }>RETURN TO CDP PORTAL</button>
+        <button className="bright-style text-btn" style={ {display: "block", margin: "4rem auto 0"} } onClick={ () => this.props.setOpenMigrate(false) }>返回到 CDP 平台</button>
       </div>
     )
   }

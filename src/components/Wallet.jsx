@@ -143,9 +143,9 @@ class Wallet extends React.Component {
                               </MenuItems>
                               <MenuFooter>
                                 <Link to="/help">
-                                  Help
+                                  使用帮助
                                 </Link>
-                                <a href="#action" onClick={ e => { e.preventDefault(); this.props.network.stopNetwork(); } }>Log Out</a>
+                                <a href="#action" onClick={ e => { e.preventDefault(); this.props.network.stopNetwork(); } }>注销</a>
                               </MenuFooter>
                             </DropdownMenu>
                             <span className="wallet-id">{ etherscanAddress(this.props.network.network, `${this.props.network.defaultAccount.substring(0, 8)}...${this.props.network.defaultAccount.substring(36, 42)}`, this.props.network.defaultAccount)}</span>
@@ -160,10 +160,10 @@ class Wallet extends React.Component {
                           <table>
                             <thead>
                               <tr>
-                                <th>Asset</th>
-                                <th>Balance</th>
-                                <th>Send</th>
-                                <th>Unlock</th>
+                                <th>资产</th>
+                                <th>余额</th>
+                                <th>发送</th>
+                                <th>解锁</th>
                               </tr>
                             </thead>
                             <tbody>

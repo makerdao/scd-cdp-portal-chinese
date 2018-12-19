@@ -15,13 +15,13 @@ class Footer extends React.Component {
             <div className="logo-center"><img src={ makerLogoFooter } alt="Maker" />Maker</div>
           </div>
           <p>
-            The Dai Credit System was developed by <a href="https://www.makerdao.com">Maker</a>.<br />
-            Our team consists of developers, economists and designers from all over the world. Our decentralized autonomous organization is governed by our token holders.
+            Dai 信贷系统由 <a href="https://www.makerdao.com">Maker</a> 开发。<br />
+            我们的团队包括全世界的开发者、经济学者以及设计师。我们的去中心化自治组织由代币持有者治理。
           </p>
           <ul>
-            <li><Link to="/help">FAQ</Link></li>
+            <li><Link to="/help">常见问题</Link></li>
             <li><a href="https://www.reddit.com/r/MakerDAO/">Reddit</a></li>
-            <li><a href="https://chat.makerdao.com">Chat</a></li>
+            <li><a href="https://chat.makerdao.com">聊天室</a></li>
           </ul>
         </div>
       </React.Fragment>
