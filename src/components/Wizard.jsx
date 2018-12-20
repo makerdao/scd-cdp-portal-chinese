@@ -96,7 +96,7 @@ class Wizard extends Component {
           state.error = "你没有足够的 ETH。";
           return state;
         } else if (state.skr.gt(0) && state.skr.round(0).lte(toWei(0.005))) {
-          state.error = "最低存入 CDP 数量需要高于 0.005 PETH. (${formatNumber(wmul(toBigNumber(toWei(0.005)), this.props.system.tub.per), 18)} ETH 实时价格).";
+          state.error = `最低存入 CDP 数量需要高于 0.005 PETH. (${formatNumber(wmul(toBigNumber(toWei(0.005)), this.props.system.tub.per), 18)} ETH 实时价格).`;
           return state;
         }
 
