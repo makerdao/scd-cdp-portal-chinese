@@ -795,9 +795,9 @@ export default class SystemStore {
                                     ).round(0);
           const valuePlusGovFee = params.govFeeType === "dai" ? this.tab(this.tub.cups[this.rootStore.dialog.cupId]).add(futureGovDebtSai.times(1.25)) : this.tab(this.tub.cups[this.rootStore.dialog.cupId]); // If fee is paid in DAI we add an extra 25% (spread)
           if (valuePlusGovFee.gt(this.dai.myBalance)) {
-            error = "Not enough DAI to close this CDP";
+            error = "没有足够的 Dai 关闭 CDP";
           } else if (params.govFeeType === "mkr" && futureGovDebtMKR.gt(this.gov.myBalance)) {
-            error = "Not enough MKR to close this CDP";
+            error = "没有足够的 MKR 关闭 CDP";
           }
           callbacks = [
                         ["system/checkAllowance", "dai", callbacks]
@@ -816,12 +816,12 @@ export default class SystemStore {
           if (proxy && await blockchain.getProxyOwner(proxy) === value.toLowerCase()) {
             value = proxy;
           } else {
-            error = "Invalid proxy address";
+            error = "无效的代理地址";
           }
         }
         callbacks = [["system/give", this.rootStore.dialog.cupId, value]];
         if (!isAddress(params.value) || params.value.slice(0, 2) !== "0x") {
-          error = "Invalid address";
+          error = "无效地址";
         }
         break;
       case "migrate":
