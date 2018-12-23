@@ -122,6 +122,7 @@ export default class NetworkStore {
     this.hw.active = true;
     this.hw.error = false;
     this.hw.network = (window.location.hostname === "cdp.makerdao.com" ||
+                       window.location.hostname === "cdp-cn.makerdao.com" ||
                        window.location.hostname === "cdp-portal-mainnet.surge.sh" ||
                        window.location.hostname === "d2maajt6wv6xbc.cloudfront.net" ||
                        window.location.hostname === 'scd-cdp-portal-mainnet-cn.now.sh')
