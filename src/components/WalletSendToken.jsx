@@ -28,11 +28,11 @@ class WalletSendToken extends React.Component {
     this.setState({ fieldErrors: {} });
 
     if (!destination || !isAddress(destination)) {
-      this.setState({ fieldErrors: { address: "Please enter a valid address" } });
+      this.setState({ fieldErrors: { address: "请输入一个有效的地址" } });
     } else if (!amount) {
-      this.setState({ fieldErrors: { amount: "Please enter a valid amount" } });
+      this.setState({ fieldErrors: { amount: "请输入一个有效的数量" } });
     } else if (this.props.system[token].myBalance.lt(toWei(amount))) {
-      this.setState({ fieldErrors: { amount: `Not enough balance to transfer ${amount} ${this.props.tokenName(token)}` } });
+      this.setState({ fieldErrors: { amount: `余额不足 ${amount} ${this.props.tokenName(token)}` } });
     } else {
       this.props.system.transferToken(token, destination, amount);
       this.amount.value = "";
@@ -73,8 +73,8 @@ class WalletSendToken extends React.Component {
               { this.state.fieldErrors.address && <p className="error">{ this.state.fieldErrors.address }</p> }
 
               <div className="align-center" style={ {margin: "3rem 0"} }>
-                <button className="sidebar-btn is-secondary" onClick={ this.props.closeSendBox }>Cancel</button>
-                <button className="sidebar-btn is-primary-green" type="submit">Send</button>
+                <button className="sidebar-btn is-secondary" onClick={ this.props.closeSendBox }>取消</button>
+                <button className="sidebar-btn is-primary-green" type="submit">发送</button>
               </div>
             </form>
           </section>
