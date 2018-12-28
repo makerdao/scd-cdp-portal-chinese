@@ -202,10 +202,10 @@ class Dialog extends React.Component {
         <div className="info-heading">年化稳定费用: { printNumber(toWei(fromWei(this.props.system.tub.fee).pow(60 * 60 * 24 * 365)).times(100).minus(toWei(100)), 1, true, true) }% <TooltipHint tipKey="stability-fee" /></div>
         <div className="info-value" style={ { marginBottom: "0"} }>{ printNumber(wdiv(this.props.system.futureRap(this.props.system.tub.cups[this.props.dialog.cupId], 1200), this.props.system.pep.val)) } MKR</div>
         <div className="info-value-smaller">你的 MKR 余额: { printNumber(this.props.system.gov.myBalance, 3) } MKR <Link to="/help/how-do-i-get-mkr-tokens" style={ {marginLeft: "5px"} }>获得 MKR</Link></div>
-        {/* <div className="fee-type-selector">
-          <input type="radio" id="govFeeMkr" name="govFeeMkr" value="mkr" checked={ this.state.govFeeType === "mkr" } onChange={ this.selectGovFeeType } /><label htmlFor="govFeeMkr">Pay stability fee with MKR</label><br />
-          <input type="radio" id="govFeeDai" name="govFeeDai" value="dai" checked={ this.state.govFeeType === "dai" } onChange={ this.selectGovFeeType } /><label htmlFor="govFeeDai">Pay stability fee with DAI</label>
-        </div> */}
+        <div className="fee-type-selector">
+          <input type="radio" id="govFeeMkr" name="govFeeMkr" value="mkr" checked={ this.state.govFeeType === "mkr" } onChange={ this.selectGovFeeType } /><label htmlFor="govFeeMkr">用 MKR 支付稳定费用</label><br />
+          <input type="radio" id="govFeeDai" name="govFeeDai" value="dai" checked={ this.state.govFeeType === "dai" } onChange={ this.selectGovFeeType } /><label htmlFor="govFeeDai">用 DAI 支付稳定费用</label>
+        </div>
       </React.Fragment>
     )
   }
@@ -309,7 +309,7 @@ class Dialog extends React.Component {
         return (
           <DialogContent
             title={ `关闭 CDP #${dialog.cupId}` }
-            text="关闭 CDP 需要偿还你借出的 Dai 以及累计的稳定费用。稳定费用需要用 MKR 支付"
+            text="关闭 CDP 需要偿还你借出的 Dai 以及累计的稳定费用。稳定费用可以用 MKR 或者 DAI 支付。"
             dialog={ this.props.dialog }
             form={
               <form ref={ input => this.updateValueForm = input } onSubmit={ this.submitForm }>

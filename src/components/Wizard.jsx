@@ -219,7 +219,7 @@ class Wizard extends Component {
 
                 <div className="row" style={ {borderBottom: "none"} }>
                   <p className="no-select">
-                    稳定费用 { printNumber(toWei(fromWei(this.props.system.tub.fee).pow(60 * 60 * 24 * 365)).times(100).minus(toWei(100)), 1, true, true) }% 年化（MKR 支付）
+                    稳定费用 { printNumber(toWei(fromWei(this.props.system.tub.fee).pow(60 * 60 * 24 * 365)).times(100).minus(toWei(100)), 1, true, true) }% 年化
                     <TooltipHint tipKey="stability-fee" />
                   </p>
                 </div>
