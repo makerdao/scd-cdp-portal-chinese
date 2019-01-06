@@ -193,7 +193,7 @@ class Wizard extends Component {
                       <div className="value typo-cl typo-bold right">{ this.state.liqPrice ? printNumber(this.state.liqPrice) : "--" } USD</div>
                     </div>
                     <div>
-                      <h3 className="typo-c inline-headline">当前价格 (ETH/USD)</h3>
+                      <h3 className="typo-c inline-headline">当前的价格信息（ETH/USD）</h3>
                       <TooltipHint tipKey="current-price-information" />
                       <div className="value typo-c right">{ printNumber(this.props.system.pip.val) } USD</div>
                     </div>

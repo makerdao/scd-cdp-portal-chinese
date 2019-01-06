@@ -69,7 +69,7 @@ class Landing extends React.Component {
               <div className="info-slide">
                 <h1>03.<span className="line"></span>开始</h1>
                 <h2>如何开始?</h2>
-                <p>你可以选择要存入 CDP 内的 ETH 数量，然后生成对应的稳定币 Dai，便可以任意使用。当你不需要流动性后，可以随时偿还 Dai 和稳定费用，取回存入的抵押品。</p>
+                <p><i>（网页端点击右上角连接钱包，手机端下滑后点击连接）</i> <br />你可以选择要存入 CDP 内的 ETH 数量，然后生成对应的稳定币 Dai，便可以任意使用。当你不需要流动性后，可以随时偿还 Dai 和稳定费用，取回存入的抵押品。</p>
               </div>
             </div>
             <div>
