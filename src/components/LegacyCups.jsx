@@ -17,7 +17,7 @@ class LegacyCups extends React.Component {
         <header className="col">
           <h1 className="typo-h1 inline-headline">映射 CDPs</h1>
         </header>
-        <div className="number-of-cdps-to-migrate">你的账户已有 <b>{ Object.keys(this.props.system.tub.legacyCups).length }</b>  { `CDP${(Object.keys(this.props.system.tub.legacyCups).length > 1 ? "s" : "")}` } 映射过来.</div>
+        <div className="number-of-cdps-to-migrate">你的账户有 <b>{ Object.keys(this.props.system.tub.legacyCups).length }</b>  { `CDP${(Object.keys(this.props.system.tub.legacyCups).length > 1 ? "s" : "")}` } 可以映射.</div>
         {
           Object.keys(this.props.system.tub.legacyCups).map(key =>
             <div className="cup-to-migrate" key={ key }>
@@ -139,7 +139,7 @@ class LegacyCups extends React.Component {
                   ?
                     <div className="migrate-success">已映射 CDP</div>
                   :
-                    <button className="text-btn" data-method="migrate" data-cup={ key } disabled={ this.props.transactions.loading.migrate && this.props.transactions.loading.migrate[key] } onClick={ this.props.dialog.handleOpenDialog }>已映射 CDP #{ key }</button>
+                    <button className="text-btn" data-method="migrate" data-cup={ key } disabled={ this.props.transactions.loading.migrate && this.props.transactions.loading.migrate[key] } onClick={ this.props.dialog.handleOpenDialog }>开始映射 CDP #{ key }</button>
                 }
               </div>
               <div className="clearfix"></div>
