@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import {DropdownMenu, MenuItems, MenuItem, MenuFooter} from "./DropdownMenu";
 import ToggleSwitch from "./ToggleSwitch";
 import WalletClientDownload from "./WalletClientDownload";
+import WalletMobileClientDownload from "./WalletMobileClientDownload";
 import WalletClientSelector from "./WalletClientSelector";
 import WalletHWSelector from "./WalletHWSelector";
 import WalletNoAccount from "./WalletNoAccount";
@@ -97,12 +98,17 @@ class Wallet extends React.Component {
       "dai": {"balance": this.props.system.dai.myBalance, "usdPrice": this.props.system.vox.par, "allowance": false},
       "gov": {"balance": this.props.system.gov.myBalance, "usdPrice": this.props.system.pep.val, "allowance": false}
     };
+    console.log('wtf', this.props.network)
     return (
       <div>
         {
           this.props.network.downloadClient
           ?
-            <WalletClientDownload />
+            this.props.network.isMobile
+            ?
+              <WalletMobileClientDownload />
+            :
+              <WalletClientDownload />
           :
             this.props.network.hw.showSelector
             ?
