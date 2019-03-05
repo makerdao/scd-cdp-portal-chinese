@@ -83,7 +83,7 @@ class Landing extends React.Component {
               <div className="info-slide">
                 <h1>05.<span className="line"></span>成本</h1>
                 <h2>使用中会有费用吗？</h2>
-                <p>生成稳定币 Dai 会有1%的年化费用，你可以用 MKR 或者 DAI 支付费用。如果你的 CDP 被清算，你的质押品会被扣除13%的罚金。</p>
+                <p>生成稳定币 Dai 会有1.5%的年化费用，你可以用 MKR 或者 DAI 支付费用。如果你的 CDP 被清算，你的质押品会被扣除13%的罚金。</p>
               </div>
             </div>
           </Slider>
