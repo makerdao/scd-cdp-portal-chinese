@@ -221,7 +221,7 @@ class Wizard extends Component {
 
                 <div className="row" style={ {borderBottom: "none"} }>
                   <p className="no-select">
-                    稳定费用 { stabilityFee }% 年化
+                    稳定费用年化 { stabilityFee }%
                     <TooltipHint tipKey="stability-fee" />
                   </p>
                 </div>
@@ -306,16 +306,16 @@ class Wizard extends Component {
 
               <div className="inline-notification is-stability-fee-warning">
                 <p style={ { color: '#B42B00', fontWeight: 500 } }>
-                  When you open a CDP, the Stability Fee might vary due to changing market conditions.&nbsp; 
+                  在你开启 CDP 后，稳定费用可能会随着市场环境变化而调整。&nbsp; 
                   <a
                     href="https://www.reddit.com/r/MakerDAO/comments/93adqj/faq_stability_fee_raise/"
                     rel="noopener noreferrer"
                     style={ { color: '#447AFB', textDecoration: 'none' } }
                     target="_blank"
                   >
-                    Find out more here
+                    了解更多
                   </a>.
-                  The Stability Fee is currently <strong>{ stabilityFee }%.</strong>
+                  稳定费用目前是年化 <strong>{ stabilityFee }%.</strong>
                 </p>
               </div>
 
