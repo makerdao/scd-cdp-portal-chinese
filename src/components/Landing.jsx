@@ -1,7 +1,7 @@
 // Libraries
 import React from "react";
 import Slider from "react-slick";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // Images
 import welcomeHero from 'images/welcome-hero.svg';
@@ -9,14 +9,23 @@ import metamaskLogo from 'images/metamask-logo.svg';
 import parityLogo from 'images/parity-logo.png';
 import ledgerNanoLogo from 'images/ledger-nano-logo.png';
 import trezorLogo from 'images/trezor-logo.png';
+import { getStabilityFee } from "../utils/blockchain";
 
 class Landing extends React.Component {
+  state = {
+    stabilityFee: null
+  }
+  componentDidMount() {
+    getStabilityFee().then(feeInHexa => {
+      this.setState({ stabilityFee: feeInHexa.toFixed(2) });
+    })
+  }
   render() {
     function PrevButton(props) {
       const { className, style, onClick } = props;
       return (
         <svg className={className} style={{ ...style }} onClick={onClick} enableBackground="new 0 0 240.823 240.823" viewBox="0 0 240.823 240.823" xmlns="http://www.w3.org/2000/svg">
-          <path d="m57.633 129.007 108.297 108.261c4.752 4.74 12.451 4.74 17.215 0 4.752-4.74 4.752-12.439 0-17.179l-99.707-99.671 99.695-99.671c4.752-4.74 4.752-12.439 0-17.191-4.752-4.74-12.463-4.74-17.215 0l-108.297 108.26c-4.679 4.691-4.679 12.511.012 17.191z"/>
+          <path d="m57.633 129.007 108.297 108.261c4.752 4.74 12.451 4.74 17.215 0 4.752-4.74 4.752-12.439 0-17.179l-99.707-99.671 99.695-99.671c4.752-4.74 4.752-12.439 0-17.191-4.752-4.74-12.463-4.74-17.215 0l-108.297 108.26c-4.679 4.691-4.679 12.511.012 17.191z" />
         </svg>
       );
     }
@@ -42,13 +51,13 @@ class Landing extends React.Component {
           <h1>欢迎来到<br />质押借 Dai 平台</h1>
           <Slider {...settings} className="landing-slider">
             <div className="first-slide">
-              <div style={ {textAlign: "center"} }>
+              <div style={{ textAlign: "center" }}>
                 <p className="align-center">
                   你可以在这里生成 Dai <br />
                   该应用由 Maker 团队开发管理<br />
-                  存入质押品，生成 Dai 
+                  存入质押品，生成 Dai
                 </p>
-                <img className="preview" src={ welcomeHero } alt="CDP Portal" />
+                <img className="preview" src={welcomeHero} alt="CDP Portal" />
               </div>
             </div>
             <div>
@@ -83,7 +92,7 @@ class Landing extends React.Component {
               <div className="info-slide">
                 <h1>05.<span className="line"></span>成本</h1>
                 <h2>使用中会有费用吗？</h2>
-                <p>生成稳定币 Dai 会有3.5%的年化费用，你可以用 MKR 或者 DAI 支付费用。如果你的 CDP 被清算，你的质押品会被扣除13%的罚金。</p>
+                <p>{this.state.stabilityFee ? `生成稳定币 Dai 会有${this.state.stabilityFee}%的年化费用，你可以用 MKR 或者 DAI 支付费用。` : ''}如果你的 CDP 被清算，你的质押品会被扣除13%的罚金。</p>
               </div>
             </div>
           </Slider>
@@ -93,10 +102,10 @@ class Landing extends React.Component {
             <p> 授权以下的四个钱包之一，自动连接到CDP平台。了解这些钱包的更多信息，点击下方的链接。如果你是高级用户，也可以使用 MakerDAO 的命令符面板使用CDP。</p>
             <p className="align-center"><Link to="/help" className="faq">关于钱包的常见问题</Link></p>
             <ul>
-              <li><a href="https://metamask.io/"><img src={ metamaskLogo } alt="Get MetaMask" /><div>获得 MetaMask</div></a></li>
-              <li><a href="https://www.parity.io/"><img src={ parityLogo } alt="Get Parity" /><div>获得 Parity</div></a></li>
-              <li><a href="https://www.ledgerwallet.com/products/ledger-nano-s"><img src={ ledgerNanoLogo } alt="Get Ledger Nano S" /><div>获得 Ledger Nano S</div></a></li>
-              <li><a href="https://trezor.io/"><img src={ trezorLogo } alt="Get Trezor" /><div>获得 Trezor</div></a></li>
+              <li><a href="https://metamask.io/"><img src={metamaskLogo} alt="Get MetaMask" /><div>获得 MetaMask</div></a></li>
+              <li><a href="https://www.parity.io/"><img src={parityLogo} alt="Get Parity" /><div>获得 Parity</div></a></li>
+              <li><a href="https://www.ledgerwallet.com/products/ledger-nano-s"><img src={ledgerNanoLogo} alt="Get Ledger Nano S" /><div>获得 Ledger Nano S</div></a></li>
+              <li><a href="https://trezor.io/"><img src={trezorLogo} alt="Get Trezor" /><div>获得 Trezor</div></a></li>
             </ul>
           </div>
         </div>
