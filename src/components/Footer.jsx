@@ -20,8 +20,9 @@ class Footer extends React.Component {
           </p>
           <ul>
             <li><Link to="/help">常见问题</Link></li>
-            <li><a href="https://www.reddit.com/r/MakerDAO/">Reddit</a></li>
             <li><a href="https://chat.makerdao.com">聊天室</a></li>
+            <li><a href="https://weibo.com/makerdao">微博客服</a></li>
+            <li><a href="https://cdp.tools/">CDP预警</a></li>
           </ul>
         </div>
       </React.Fragment>
