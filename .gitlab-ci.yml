@@ -25,18 +25,6 @@ test:
     - echo "Running unit tests"
     # - npm run test
 
-build development:
-  stage: build
-  script:
-    - echo "Building project for development environment at $DEPLOYMENT_URL_DEVELOPMENT"
-    - PUBLIC_URL=$DEPLOYMENT_URL_DEVELOPMENT yarn build
-  only:
-    - develop
-  artifacts:
-    name: "artifacts-$CI_JOB_ID-$CI_COMMIT_SHORT_SHA"
-    paths:
-      - build
-
 build:
   stage: build
   script:
@@ -51,18 +39,6 @@ build:
     paths:
       - build-staging
       - build-production
-
-deploy to development:
-  stage: deploy
-  environment:
-    name: development
-    url: $DEPLOYMENT_URL_DEVELOPMENT
-  script:
-    - echo "Deploying to development at $DEPLOYMENT_URL_DEVELOPMENT"
-    - node_modules/.bin/now ./build --token $NOW_TOKEN -A ../now.json
-    - node_modules/.bin/now alias --token $NOW_TOKEN $DEPLOYMENT_URL_DEVELOPMENT
-  only:
-    - develop
 
 deploy to staging:
   stage: deploy
