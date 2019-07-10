@@ -306,16 +306,16 @@ class Wizard extends Component {
 
               <div className="inline-notification is-stability-fee-warning">
                 <p style={ { color: '#B42B00', fontWeight: 500 } }>
-                  在你开启 CDP 后，稳定费用可能会随着市场环境变化而调整。&nbsp; 
+                  在你开启 CDP 后，稳定费用可能会随着市场环境变化而调整，
                   <a
                     href="https://www.reddit.com/r/MakerDAO/comments/93adqj/faq_stability_fee_raise/"
                     rel="noopener noreferrer"
                     style={ { color: '#447AFB', textDecoration: 'none' } }
                     target="_blank"
                   >
-                    了解更多
-                  </a>.
-                  稳定费用目前是年化 <strong>{ stabilityFee }%.</strong>
+                    了解更多。
+                  </a>
+                  稳定费用目前是年化 <strong>{ stabilityFee }%。</strong>
                 </p>
               </div>
 
