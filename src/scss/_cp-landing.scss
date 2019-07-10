@@ -181,7 +181,27 @@
     }
   }
 
+  .connect-wallet-mobile-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
+  button.connect-wallet-mobile {
+    min-width: 200px;
+    min-height: 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background-color: #1ABC9C;
+    color: #000;
+    text-transform: uppercase;
+    padding: 0.85rem 1rem;
+    letter-spacing: 0.02rem;
+    line-height: 1;
+    border-radius: 2px;
+    font-family: 'Cairo', 'Arial', sans-serif;
+    margin: 2rem auto;
+  }
 }
 
   .landing-footer {

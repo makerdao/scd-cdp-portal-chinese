@@ -1,5 +1,6 @@
 // Libraries
 import Promise from "bluebird";
+import checkIsMobile from "ismobilejs";
 
 // Utils
 import web3 from "./web3";
@@ -321,3 +322,7 @@ export async function getStabilityFee() {
     .minus(1)
     .multipliedBy(100);
 }
+
+export const isMobileWeb3Wallet = () => {
+  return checkIsMobile.any && (window.web3 || window.ethereum);
+};

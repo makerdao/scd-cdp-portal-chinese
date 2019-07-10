@@ -2,6 +2,10 @@
 import React from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
+import { inject } from "mobx-react";
+
+// Components
+import WalletConnectMobile from "./WalletMobileConnect";
 
 // Images
 import welcomeHero from 'images/welcome-hero.svg';
@@ -11,6 +15,7 @@ import ledgerNanoLogo from 'images/ledger-nano-logo.png';
 import trezorLogo from 'images/trezor-logo.png';
 import { getStabilityFee } from "../utils/blockchain";
 
+@inject("network")
 class Landing extends React.Component {
   state = {
     stabilityFee: null
@@ -49,6 +54,9 @@ class Landing extends React.Component {
 
         <div className="landing-body">
           <h1>欢迎来到<br />质押借 Dai 平台</h1>
+          {
+            this.props.network.isMobileWeb3Wallet && <WalletConnectMobile />
+          }
           <Slider {...settings} className="landing-slider">
             <div className="first-slide">
               <div style={{ textAlign: "center" }}>

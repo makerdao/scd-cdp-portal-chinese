@@ -1,6 +1,7 @@
 // Libraries
 import {observable} from "mobx";
-import checkIsMobile from 'ismobilejs'
+import checkIsMobile from 'ismobilejs';
+
 // Utils
 import * as blockchain from "../utils/blockchain";
 
@@ -17,7 +18,8 @@ export default class NetworkStore {
   @observable hw = {active: false, showSelector: false, option: null, derivationPath: null, addresses: [], loading: false, error: null, network: ""};
   @observable downloadClient = false;
   isMobile = checkIsMobile.any;
-  
+  isMobileWeb3Wallet = blockchain.isMobileWeb3Wallet();
+
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
