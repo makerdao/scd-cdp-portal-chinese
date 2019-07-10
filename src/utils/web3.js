@@ -14,7 +14,7 @@ import * as settings from "../settings";
 export const getWebClientProviderName = () => {
   if (window.imToken)
     return 'imtoken';
-  
+
   if (!window.web3 || typeof window.web3.currentProvider === "undefined")
     return "";
 
@@ -23,6 +23,12 @@ export const getWebClientProviderName = () => {
 
   if (window.web3.currentProvider.isTrust)
     return "trust";
+
+  if (window.web3.currentProvider.isQbao)
+    return 'qbao';
+
+  if (window.web3.currentProvider.isBitpie)
+    return 'bitpie';
 
   if (typeof window.SOFA !== "undefined")
     return "coinbase";
