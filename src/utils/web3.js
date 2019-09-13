@@ -110,7 +110,7 @@ class Web3Extended extends Web3 {
     return new Promise(async (resolve, reject) => {
       try {
         this.setProvider(provider);
-        this.useLogs = true;
+        this.useLogs = false;
         this.currentProvider.name = getWebClientProviderName();
         resolve(true);
       } catch (error) {
