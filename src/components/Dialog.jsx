@@ -72,10 +72,10 @@ class Dialog extends React.Component {
           giveToProxy: true
         });
         if (this.props.dialog.method === "wipe" && this.props.system.dai.myBalance.gt(0) && !this.props.system.gov.myBalance.gt(0)) {
-          console.debug('Reporting 0 MKR balance on pay back DAI dialog');
+          console.debug('Reporting 0 MKR balance on pay back SAI dialog');
           ReactGA.event({
             category: 'UX',
-            action: 'Zero MKR balance on pay back DAI dialog'
+            action: 'Zero MKR balance on pay back SAI dialog'
           });
         }
       }
@@ -205,7 +205,7 @@ class Dialog extends React.Component {
         <div className="info-value-smaller">你的 MKR 余额: { printNumber(this.props.system.gov.myBalance, 3) } MKR <Link to="/help/how-do-i-get-mkr-tokens" style={ {marginLeft: "5px"} }>获得 MKR</Link></div>
         <div className="fee-type-selector">
           <input type="radio" id="govFeeMkr" name="govFeeMkr" value="mkr" checked={ this.state.govFeeType === "mkr" } onChange={ this.selectGovFeeType } /><label htmlFor="govFeeMkr">用 MKR 支付稳定费用</label><br />
-          <input type="radio" id="govFeeDai" name="govFeeDai" value="dai" checked={ this.state.govFeeType === "dai" } onChange={ this.selectGovFeeType } /><label htmlFor="govFeeDai">用 DAI 支付稳定费用</label>
+          <input type="radio" id="govFeeDai" name="govFeeDai" value="dai" checked={ this.state.govFeeType === "dai" } onChange={ this.selectGovFeeType } /><label htmlFor="govFeeDai">用 SAI 支付稳定费用</label>
         </div>
       </React.Fragment>
     )
@@ -327,13 +327,13 @@ class Dialog extends React.Component {
         return (
           <DialogContent
             title={ `关闭 CDP #${dialog.cupId}` }
-            text="关闭 CDP 需要偿还你借出的 Dai 以及累计的稳定费用。稳定费用可以用 MKR 或者 DAI 支付。"
+            text="关闭 CDP 需要偿还你借出的 SAI 以及累计的稳定费用。稳定费用可以用 MKR 或者 SAI 支付。"
             dialog={ this.props.dialog }
             form={
               <form ref={ input => this.updateValueForm = input } onSubmit={ this.submitForm }>
                 <div className="info-section">
-                  <div className="info-heading">已生成的 Dai 款</div>
-                  <div className="info-value">{ printNumber(this.props.system.tab(cup), 3) } DAI</div>
+                  <div className="info-heading">已生成的 SAI 款</div>
+                  <div className="info-value">{ printNumber(this.props.system.tab(cup), 3) } SAI</div>
                   { cup && cup.art.gt(0) && this.renderFeeTypeSelector() }
                   {/* <div className="info-heading">Total Closing Payment</div>
                   <div className="info-value">{ printNumber(this.props.system.tab(cup), 3) } + 0.00 MKR</div> */}
@@ -466,9 +466,9 @@ class Dialog extends React.Component {
               if (this.props.system.sin.totalSupply.add(valueWei).gt(this.props.system.tub.cap)) {
                 this.props.dialog.error = "这个数量超过了系统的债务上限。";
               } else if (cup.avail_dai.lt(valueWei)) {
-                this.props.dialog.error = "你没有足够的抵押品去生成这个数量的 DAI，请先存入更多的抵押品。";
+                this.props.dialog.error = "你没有足够的抵押品去生成这个数量的 SAI，请先存入更多的抵押品。";
               } else if (this.state.ratio.lt(WAD.times(2))) {
-                this.props.dialog.warning = "提醒：你希望生成 DAI 的数量会让 CDP 比较接近清算值。";
+                this.props.dialog.warning = "提醒：你希望生成 SAI 的数量会让 CDP 比较接近清算值。";
                 this.setState({submitEnabled: true});
               } else {
                 this.setState({submitEnabled: true});
@@ -478,8 +478,8 @@ class Dialog extends React.Component {
         }
         return (
           <DialogContent
-            title="生成 DAI"
-            text="你希望生成多少 DAI？"
+            title="生成 SAI"
+            text="你希望生成多少 SAI？"
             dialog={ this.props.dialog }
             form={
               <form ref={ input => this.updateValueForm = input } onSubmit={ this.submitForm }>
@@ -488,7 +488,7 @@ class Dialog extends React.Component {
                 </div>
                 <div className="info-section">
                   <div className="info-heading">最多可生成数量</div>
-                  <div className="info-value">{ printNumber(this.props.system.tub.cups[this.props.dialog.cupId].avail_dai, 2) } DAI</div>
+                  <div className="info-value">{ printNumber(this.props.system.tub.cups[this.props.dialog.cupId].avail_dai, 2) } SAI</div>
                   { this.renderDetails() }
                   { this.renderErrors() }
                 </div>
@@ -524,16 +524,16 @@ class Dialog extends React.Component {
                                         ).round(0);
               const valuePlusGovFee = this.state.govFeeType === "dai" ? valueWei.add(futureGovDebtSai.times(1.25)) : valueWei; // If fee is paid in DAI we add an extra 25% (spread)
               if (this.props.system.dai.myBalance.lt(valuePlusGovFee)) {
-                this.props.dialog.error = "你没有足够的 DAI。";
+                this.props.dialog.error = "你没有足够的 SAI";
               } else if (this.props.system.tab(cup).lt(valueWei)) {
-                this.props.dialog.error = "你希望偿还 DAI 的数量超过了欠的 DAI 款";
+                this.props.dialog.error = "你希望偿还 SAI 的数量超过了欠的 SAI 款";
               } else if (this.state.govFeeType === "mkr" && futureGovDebtMKR.gt(this.props.system.gov.myBalance)) {
                 this.props.dialog.error = "你没有足够的 MKR 去偿还债务.";
               } else if (this.state.ratio.lt(WAD.times(1.5))) {
-                this.props.dialog.warning = "你的 CDP 不足最低要求质押率，你应该偿还 DAI 或者追加更多的质押品。";
+                this.props.dialog.warning = "你的 CDP 不足最低要求质押率，你应该偿还 SAI 或者追加更多的质押品。";
                 this.setState({submitEnabled: true});
               } else if (this.state.ratio.lt(WAD.times(2))) {
-                this.props.dialog.warning = "提醒：即使偿还这么多的 DAI，你的 CDP 还是比较接近清算线。";
+                this.props.dialog.warning = "提醒：即使偿还这么多的 SAI，你的 CDP 还是比较接近清算线。";
                 this.setState({submitEnabled: true});
               } else {
                 this.setState({submitEnabled: true});
@@ -542,12 +542,12 @@ class Dialog extends React.Component {
           });
         }
         const indentedText = (!this.props.system.dai.allowance.eq(BIGGESTUINT256) || !this.props.system.gov.allowance.eq(BIGGESTUINT256))
-          ? "你也许需要去签名三个交易，如果许可的 DAI 和 MKR 不够。"
+          ? "你也许需要去签名三个交易，如果许可的 SAI 和 MKR 不够。"
           : "";
         return (
           <DialogContent
-            title="偿还 DAI"
-            text="你希望偿还多少 DAI？"
+            title="偿还 SAI"
+            text="你希望偿还多少 SAI？"
             indentedText={ indentedText }
             dialog={ this.props.dialog }
             form={
@@ -557,8 +557,8 @@ class Dialog extends React.Component {
                   <div className="set-max"><a href="#action" onClick={ this.setMax }>全部偿还</a></div>
                 </div>
                 <div className="info-section" style={ { marginTop: "2rem"} }>
-                  <div className="info-heading">已生成的 DAI 款</div>
-                  <div className="info-value">{ printNumber(this.props.system.tab(this.props.system.tub.cups[this.props.dialog.cupId])) } DAI</div>
+                  <div className="info-heading">已生成的 SAI 款</div>
+                  <div className="info-value">{ printNumber(this.props.system.tab(this.props.system.tub.cups[this.props.dialog.cupId])) } SAI</div>
                   { this.renderFeeTypeSelector() }
                   { this.renderDetails() }
                   { this.renderErrors() }

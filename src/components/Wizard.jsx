@@ -54,8 +54,8 @@ class Wizard extends Component {
                       tip: <TooltipHint tipKey="wizard-convert-weth-to-peth" />
                     },
                     { text: "CDP 创建完成 - 你转换后的 ETH 已经存起来" },
-                    { text: "Dai 生成完成 - 你需要的 Dai 已经生成" },
-                    { text: "Dai 发送完成 - 你需要的 Dai 已经发送到你的钱包" }
+                    { text: "Sai 生成完成 - 你需要的 Sai 已经生成" },
+                    { text: "Sai 发送完成 - 你需要的 Sai 已经发送到你的钱包" }
                   ];
     if (this.props.profile.proxy && this.props.profile.proxy !== -1) {
       steps.shift();
@@ -102,14 +102,14 @@ class Wizard extends Component {
 
         if (state.eth.gt(0) && state.dai.gt(0)) {
           if (this.props.system.sin.totalSupply.add(state.dai).gt(this.props.system.tub.cap)) {
-            state.error = "你希望生成的 Dai 超过了系统的债务上限。";
+            state.error = "你希望生成的 Sai 超过了系统的债务上限。";
           } else if (state.dai.gt(state.maxDaiAvail)) {
-            state.error = "你存入的 ETH 数量不足以生成这么多的 Dai。";
+            state.error = "你存入的 ETH 数量不足以生成这么多的 Sai。";
           } else {
             state.liqPrice = this.props.system.calculateLiquidationPrice(state.skr, state.dai);
             state.ratio = this.props.system.calculateRatio(state.skr, state.dai);
             if (state.ratio.lt(WAD.times(2))) {
-              state.warning = "提醒：希望生成 Dai 的数量会让你的 CDP 比较接近清算值。";
+              state.warning = "提醒：希望生成 Sai 的数量会让你的 CDP 比较接近清算值。";
             }
             state.submitEnabled = true;
           }
@@ -148,7 +148,7 @@ class Wizard extends Component {
         <LegacyCupsAlert setOpenMigrate={ this.props.setOpenMigrate } />
         <header className="col" style={ {borderBottom: "none"} }>
           <Steps current={this.state.step - 1}>
-            <Step title="质押并生成 DAI" icon={<StepIcon step="1" />} />
+            <Step title="质押并生成 SAI" icon={<StepIcon step="1" />} />
             <Step title="确认细节" icon={<StepIcon step="2" />} />
           </Steps>
         </header>
@@ -175,13 +175,13 @@ class Wizard extends Component {
                   </div>
 
                   <div className="col col-2">
-                    <label className="typo-cl no-select">你希望生成多少 DAI？</label>
+                    <label className="typo-cl no-select">你希望生成多少 SAI？</label>
                     <div className="input-values-container">
-                      <input ref={ input => this.dai = input } type="number" id="inputDAI" className="number-input" required step="0.000000000000000001" placeholder="0.000" value={ this.state.daiText } onChange={ e => { this.checkValues("dai", e.target.value) } } onKeyDown={ e => { if (e.keyCode === 38 || e.keyCode === 40 || e.keyCode === 189) e.preventDefault() } } />
-                      <span className="unit" style={ {marginBottom: "0.35rem" } }>DAI</span>
+                      <input ref={ input => this.dai = input } type="number" id="inputSAI" className="number-input" required step="0.000000000000000001" placeholder="0.000" value={ this.state.daiText } onChange={ e => { this.checkValues("dai", e.target.value) } } onKeyDown={ e => { if (e.keyCode === 38 || e.keyCode === 40 || e.keyCode === 189) e.preventDefault() } } />
+                      <span className="unit" style={ {marginBottom: "0.35rem" } }>SAI</span>
                       {
                         this.state.maxDaiAvail &&
-                        <p className="typo-cs align-right">最多借出数量: { printNumber(this.state.maxDaiAvail) } DAI</p>
+                        <p className="typo-cs align-right">最多借出数量: { printNumber(this.state.maxDaiAvail) } SAI</p>
                       }
                     </div>
                   </div>
@@ -242,7 +242,7 @@ class Wizard extends Component {
             <React.Fragment>
               <div className="row">
                 <div className="col">
-                  <h3 className="typo-cl">质押并生成 Dai</h3>
+                  <h3 className="typo-cl">质押并生成 Sai</h3>
                 </div>
               </div>
 
@@ -256,7 +256,7 @@ class Wizard extends Component {
                 <div className="col col-2">
                   <div>
                     <h3 className="typo-cl inline-headline">生成:</h3>
-                    <div className="value typo-cl typo-bold right">{ printNumber(this.state.dai) } DAI</div>
+                    <div className="value typo-cl typo-bold right">{ printNumber(this.state.dai) } SAI</div>
                   </div>
                 </div>
               </div>

@@ -79,7 +79,7 @@ class NotifySetUp extends React.Component {
                 <h2>恭喜，你的 CDP 已经创建成功！</h2>
                 <img className="main" src={ cdpCreated } alt="CDP 已创建" />
                 <p>
-                  欢迎来到质押借 Dai 平台，你可以在去中心化环境下查看和管理你的<br />质押品.
+                  欢迎来到质押借 Sai 平台，你可以在去中心化环境下查看和管理你的<br />质押品.
                 </p>
                 <ul>
                   <li>
@@ -92,7 +92,7 @@ class NotifySetUp extends React.Component {
                   </li>
                   <li>
                     <div className="icon"><img src={ cdpCreatedIcon3 } alt="*" style={ {height: "30px"} } /></div>
-                    生成或者<br />偿还 DAI
+                    生成或者<br />偿还 SAI
                   </li>
                 </ul>
                 <div className="align-center" style={ {paddingBottom: "3.7rem", userSelect: "none"} }>
