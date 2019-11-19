@@ -38,7 +38,7 @@ class SystemInfo extends React.Component {
                   <span>加载中...</span>
               }
             </div>
-            <h3 className="typo-c">DAI/USD</h3>
+            <h3 className="typo-c">SAI/USD</h3>
             <div className="value">
               {
                 this.props.system.vox.par.gte(0)
@@ -81,7 +81,7 @@ class SystemInfo extends React.Component {
                   "Loading..."
               }
             </div>
-            <h3 className="typo-c"> DAI 的全部供给数量</h3>
+            <h3 className="typo-c"> SAI 的全部供给数量</h3>
             <div className="value">
               {
                 this.props.system.dai.totalSupply && this.props.system.dai.totalSupply.gt(0)

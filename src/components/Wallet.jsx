@@ -48,6 +48,7 @@ class Wallet extends React.Component {
   }
 
   tokenName = token => token.replace("gov", "mkr").toUpperCase();
+  tokenName = token => token.replace("dai", "sai").toUpperCase();
 
   formatClientName = name => {
     switch (name) {

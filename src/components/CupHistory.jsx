@@ -78,11 +78,11 @@ class CupHistory extends React.Component {
                             image = historyIconPayback;
                             break;
                           case "DRAW":
-                            message = <React.Fragment>生成 {printNumber(toWei(action.arg))} DAI 从你的 CDP</React.Fragment>;
+                            message = <React.Fragment>生成 {printNumber(toWei(action.arg))} SAI 从你的 CDP</React.Fragment>;
                             image = historyIconBorrow;
                             break;
                           case "WIPE":
-                            message = <React.Fragment>偿还 {printNumber(toWei(action.arg))} DAI 到你的 CDP</React.Fragment>;
+                            message = <React.Fragment>偿还 {printNumber(toWei(action.arg))} SAI 到你的 CDP</React.Fragment>;
                             image = historyIconTransfer; // Should this be "history-icon-payback.svg" instead?
                             break;
                           case "SHUT":
@@ -95,7 +95,7 @@ class CupHistory extends React.Component {
                             const liqETH = liqInk * action.per;
                             const pip = toWei(this.props.history[key].pip);
                             message = <React.Fragment>
-                                        Your CDP has been liquidated to pay back { printNumber(art, 2) } DAI.
+                                        Your CDP has been liquidated to pay back { printNumber(art, 2) } SAI.
                                         Total {printNumber(liqETH)} ETH ({ printNumber(liqInk) } PETH) has been liquidated at { printNumber(pip, 2) } USD.
                                       </React.Fragment>;
                             image = historyIconLiquidation;

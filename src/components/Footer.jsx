@@ -15,7 +15,7 @@ class Footer extends React.Component {
             <div className="logo-center"><img src={ makerLogoFooter } alt="Maker" />Maker</div>
           </div>
           <p>
-            Dai 信贷系统由 <a href="https://www.makerdao.com">Maker</a> 开发。<br />
+            Sai 信贷系统由 <a href="https://www.makerdao.com">Maker</a> 开发。<br />
             我们的团队包括全世界的开发者、经济学者以及设计师。我们的去中心化自治组织由代币持有者治理。
           </p>
           <ul>

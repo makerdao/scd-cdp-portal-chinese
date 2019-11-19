@@ -27,7 +27,7 @@ class LegacyCups extends React.Component {
               <table>
                 <thead>
                   <tr>
-                    <th>DAI 债务</th>
+                    <th>SAI 债务</th>
                     <th>存入的 PETH</th>
                     <th>% 比例</th>
                     <th>清算价格</th>
