@@ -6,6 +6,7 @@ import { inject } from "mobx-react";
 
 // Components
 import WalletConnectMobile from "./WalletMobileConnect";
+import McdAlert from "./McdAlert";
 
 // Images
 import welcomeHero from 'images/welcome-hero.svg';
@@ -53,6 +54,7 @@ class Landing extends React.Component {
       <div className="landing">
 
         <div className="landing-body">
+          <McdAlert />
           <h1>欢迎来到<br />质押借 Sai 平台</h1>
           {
             this.props.network.isMobileWeb3Wallet && <WalletConnectMobile />
