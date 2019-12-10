@@ -5,13 +5,13 @@
 Have installed:
 
 - Git
-- Node 6 or higher
+- Node 8 or higher
 
 ### Installation
 
-1) `git clone git@github.com:makerdao/scd-cdp-portal.git`
+1) `git clone git@github.com:makerdao/scd-cdp-portal-chinese.git`
 
-2) `cd scd-cdp-portal && yarn`
+2) `cd scd-cdp-portal-chinese && yarn`
 
 ### Run project
 
