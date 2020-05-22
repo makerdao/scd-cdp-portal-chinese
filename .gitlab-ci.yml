@@ -15,7 +15,6 @@ cache:
 prepare:
   stage: prepare
   script:
-    - npm install yarn --no-progress --global
     - yarn add now --cache-folder .yarn
     - yarn install --cache-folder .yarn
 
