@@ -281,11 +281,24 @@
   .wrapper, .landing-footer {
     padding-left: 170px !important;
     padding-right: 170px !important;
+
+    @media screen and (max-width: 768px) {
+      padding: 0 !important;
+    }
   }
   .landing-body {
     border-right: none;
   }
-  .right-column, .getting-started, .landing-body h1, .first-slide p {
+  .right-column, .getting-started, .landing-body h1, .first-slide p, .connect-wallet-mobile-container {
     display: none !important;
+  }
+
+  @media screen and (max-width: 768px) {
+    .mcd-alert {
+      .message {
+        padding-right: 0 !important;
+        padding-bottom: 4rem;
+      }
+    }
   }
 }
