@@ -56,6 +56,7 @@ class Landing extends React.Component {
 
         <div className="landing-body">
           <McdAlert />
+          <OasisAlert />
           <h1>欢迎来到<br />质押借 Sai 平台</h1>
           {
             this.props.network.isMobileWeb3Wallet && <WalletConnectMobile />
