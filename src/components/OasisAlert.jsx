@@ -16,9 +16,9 @@ class OasisAlert extends React.Component {
     return (
       this.state.show &&
       <InlineNotification
-        class="oasis-alert"
+        class="mcd-alert"
         caption="多抵押 Dai 和 Oasis"
-        buttonText="前往赎回窗口"
+        buttonText="前往 Oasis.app"
         onCloseButtonClick={ () => { localStorage.setItem('OasisAppClosed', true); this.setState({show: false}); } }
         onButtonClick={ () => window.open("https://oasis.app", "_blank") }
       >

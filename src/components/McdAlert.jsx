@@ -17,7 +17,6 @@ class McdAlert extends React.Component {
       this.state.show &&
       <InlineNotification
         class="mcd-alert"
-        caption="多抵押 Dai 和 Oasis"
         buttonText="前往赎回窗口"
         onCloseButtonClick={ () => { localStorage.setItem('ScdAlertClosed', true); this.setState({show: false}); } }
         onButtonClick={ () => window.open("https://migrate.makerdao.com", "_blank") }
